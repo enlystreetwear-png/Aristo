@@ -93,16 +93,17 @@ function loadBills() {
         total += data.total;
 
         html += `
-          <div>
-            <img src="${data.imageUrl}" width="100"><br>
-            Total: ${data.total}<br>
-            Items: ${data.items.join(", ")}
-            <hr>
-          </div>
-        `;
+  <div class="bill-card">
+    <img src="${data.imageUrl}">
+    <p><strong>Total:</strong> ${data.total}</p>
+    <p><strong>Items:</strong> ${data.items.join(", ")}</p>
+  </div>
+`;
+
       });
 
-      html += `<h3>Daily Total: ${total}</h3>`;
+      html += `<div class="total-box">Daily Total: ${total}</div>`;
+
 
       document.getElementById("list").innerHTML = html;
     });
