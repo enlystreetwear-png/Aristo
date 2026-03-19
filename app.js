@@ -37,6 +37,15 @@ function login() {
   } else {
     alert("Invalid login");
   }
+  
+  if (user) {
+  localStorage.setItem("role", user.role);
+
+  document.getElementById("loginPage").style.display = "none"; // 👈 hide login
+
+  loadApp();
+}
+
 }
 
 
@@ -44,12 +53,17 @@ function login() {
 function loadApp() {
   const role = localStorage.getItem("role");
 
+  if (role) {
+    document.getElementById("loginPage").style.display = "none"; // 👈 hide login
+  }
+
   if (role === "accountant") {
     showAccountantPage();
   } else if (role === "owner") {
     showOwnerPage();
   }
 }
+
 
 
 // 👨‍💼 ACCOUNTANT PAGE
@@ -137,8 +151,11 @@ function loadBills() {
 // 🚪 LOGOUT
 function logout() {
   localStorage.removeItem("role");
-  location.reload();
+
+  document.getElementById("loginPage").style.display = "block"; // 👈 show login again
+  document.getElementById("app").innerHTML = "";
 }
+
 
 
 // 🔄 AUTO LOGIN IF ALREADY LOGGED IN
@@ -147,3 +164,4 @@ window.onload = function () {
     loadApp();
   }
 };
+
