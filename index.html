@@ -7,259 +7,203 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --bg: #0f0f0f; --surface: #1a1a1a; --card: #222;
-    --border: #2e2e2e; --accent: #d4a853; --text: #f0ece4;
-    --muted: #888; --danger: #e05a5a; --success: #5ab88a; --radius: 12px;
+    --bg:#0f0f0f;--surface:#1a1a1a;--card:#222;--border:#2e2e2e;
+    --accent:#d4a853;--text:#f0ece4;--muted:#888;--danger:#e05a5a;--success:#5ab88a;--radius:12px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
+  .screen{display:none;min-height:100vh;}
+  .screen.active{display:flex;flex-direction:column;}
 
-  .screen { display: none; min-height: 100vh; }
-  .screen.active { display: flex; flex-direction: column; }
+  /* SETUP SCREEN */
+  #setup-screen{align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 20%,#001a1a 0%,#0f0f0f 60%);}
+  .setup-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px;width:100%;max-width:520px;box-shadow:0 30px 80px rgba(0,0,0,.6);}
+  .setup-box h2{font-family:'Playfair Display',serif;color:var(--accent);font-size:22px;margin-bottom:8px;}
+  .setup-box p{color:var(--muted);font-size:13px;margin-bottom:24px;line-height:1.6;}
+  .setup-step{background:var(--card);border-radius:10px;padding:16px;margin-bottom:14px;border:1px solid var(--border);}
+  .setup-step-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--accent);color:#000;border-radius:50%;font-size:12px;font-weight:700;margin-right:8px;}
+  .setup-step p{margin-bottom:10px;margin-top:6px;font-size:13px;color:var(--muted);}
+  .setup-step code{background:#111;color:var(--accent);padding:2px 7px;border-radius:4px;font-size:12px;}
+  .setup-step input{width:100%;padding:10px 14px;background:#111;border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;margin-top:6px;}
+  .setup-step input:focus{border-color:var(--accent);}
+  .btn-setup{width:100%;padding:13px;background:linear-gradient(135deg,var(--accent),#a07030);border:none;border-radius:10px;color:#000;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;margin-top:10px;transition:opacity .2s;}
+  .btn-setup:hover{opacity:.85;}
+  .setup-error{color:var(--danger);font-size:13px;margin-top:10px;display:none;}
 
   /* LOGIN */
-  #login-screen {
-    align-items: center; justify-content: center;
-    background: radial-gradient(ellipse at 30% 20%, #1e1500 0%, #0f0f0f 60%);
-  }
-  .login-box {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 20px; padding: 48px 40px;
-    width: 100%; max-width: 420px; box-shadow: 0 30px 80px rgba(0,0,0,.6);
-  }
-  .brand { text-align: center; margin-bottom: 36px; }
-  .brand-icon {
-    width: 56px; height: 56px; background: linear-gradient(135deg, var(--accent), #a07030);
-    border-radius: 14px; display: flex; align-items: center; justify-content: center;
-    font-size: 26px; margin: 0 auto 14px;
-  }
-  .brand h1 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--accent); }
-  .brand p { color: var(--muted); font-size: 13px; margin-top: 4px; }
-  .role-tabs { display: flex; gap: 8px; margin-bottom: 28px; background: var(--card); border-radius: 10px; padding: 4px; }
-  .role-tab {
-    flex: 1; padding: 10px; border: none; background: transparent; color: var(--muted);
-    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; border-radius: 8px; cursor: pointer; transition: all .2s;
-  }
-  .role-tab.active { background: var(--accent); color: #000; }
-  .form-group { margin-bottom: 18px; }
-  .form-group label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; letter-spacing: .5px; text-transform: uppercase; }
-  .form-group input {
-    width: 100%; padding: 12px 16px; background: var(--card); border: 1px solid var(--border);
-    border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; outline: none; transition: border .2s;
-  }
-  .form-group input:focus { border-color: var(--accent); }
-  .btn-primary {
-    width: 100%; padding: 14px; background: linear-gradient(135deg, var(--accent), #a07030);
-    border: none; border-radius: 10px; color: #000; font-family: 'DM Sans', sans-serif;
-    font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity .2s;
-  }
-  .btn-primary:hover { opacity: .85; }
-  .error-msg { color: var(--danger); font-size: 13px; text-align: center; margin-top: 12px; display: none; }
+  #login-screen{align-items:center;justify-content:center;background:radial-gradient(ellipse at 30% 20%,#1e1500 0%,#0f0f0f 60%);}
+  .login-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:48px 40px;width:100%;max-width:420px;box-shadow:0 30px 80px rgba(0,0,0,.6);}
+  .brand{text-align:center;margin-bottom:36px;}
+  .brand-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--accent),#a07030);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 14px;}
+  .brand h1{font-family:'Playfair Display',serif;font-size:26px;color:var(--accent);}
+  .brand p{color:var(--muted);font-size:13px;margin-top:4px;}
+  .role-tabs{display:flex;gap:8px;margin-bottom:28px;background:var(--card);border-radius:10px;padding:4px;}
+  .role-tab{flex:1;padding:10px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border-radius:8px;cursor:pointer;transition:all .2s;}
+  .role-tab.active{background:var(--accent);color:#000;}
+  .form-group{margin-bottom:18px;}
+  .form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase;}
+  .form-group input{width:100%;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;transition:border .2s;}
+  .form-group input:focus{border-color:var(--accent);}
+  .btn-primary{width:100%;padding:14px;background:linear-gradient(135deg,var(--accent),#a07030);border:none;border-radius:10px;color:#000;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .2s;}
+  .btn-primary:hover{opacity:.85;}
+  .error-msg{color:var(--danger);font-size:13px;text-align:center;margin-top:12px;display:none;}
 
   /* TOPBAR */
-  .topbar {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 28px; background: var(--surface); border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; z-index: 50;
-  }
-  .topbar-brand { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 20px; }
-  .topbar-role { font-size: 12px; color: var(--muted); background: var(--card); padding: 4px 10px; border-radius: 20px; }
-  .btn-logout {
-    padding: 8px 18px; background: transparent; border: 1px solid var(--border);
-    color: var(--muted); border-radius: 8px; cursor: pointer; font-size: 13px; transition: all .2s;
-  }
-  .btn-logout:hover { border-color: var(--danger); color: var(--danger); }
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;}
+  .topbar-brand{font-family:'Playfair Display',serif;color:var(--accent);font-size:20px;}
+  .topbar-right{display:flex;align-items:center;gap:12px;}
+  .topbar-role{font-size:12px;color:var(--muted);background:var(--card);padding:4px 10px;border-radius:20px;}
+  .sync-indicator{font-size:12px;padding:4px 10px;border-radius:20px;background:var(--card);}
+  .sync-indicator.syncing{color:#f0a030;}
+  .sync-indicator.synced{color:var(--success);}
+  .sync-indicator.error{color:var(--danger);}
+  .btn-logout{padding:8px 18px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;cursor:pointer;font-size:13px;transition:all .2s;}
+  .btn-logout:hover{border-color:var(--danger);color:var(--danger);}
 
-  .content { flex: 1; padding: 28px; max-width: 960px; width: 100%; margin: 0 auto; }
-  .date-bar, .owner-date-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-  .date-bar label, .owner-date-bar label { font-size: 13px; color: var(--muted); }
-  .date-bar input[type="date"], .owner-date-bar input[type="date"] {
-    padding: 9px 14px; background: var(--card); border: 1px solid var(--border);
-    border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; cursor: pointer;
-  }
-  .date-bar input[type="date"]:focus, .owner-date-bar input[type="date"]:focus { border-color: var(--accent); }
+  .content{flex:1;padding:28px;max-width:960px;width:100%;margin:0 auto;}
+  .date-bar,.owner-date-bar{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap;}
+  .date-bar label,.owner-date-bar label{font-size:13px;color:var(--muted);}
+  .date-bar input[type="date"],.owner-date-bar input[type="date"]{padding:9px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;cursor:pointer;}
+  .date-bar input[type="date"]:focus,.owner-date-bar input[type="date"]:focus{border-color:var(--accent);}
 
-  .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
-  .section-title {
-    font-size: 13px; color: var(--accent); letter-spacing: .8px; text-transform: uppercase;
-    margin-bottom: 18px; display: flex; align-items: center; gap: 8px;
-  }
-  .section-title::before { content: ''; width: 3px; height: 14px; background: var(--accent); border-radius: 2px; display: block; }
+  .section-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px;}
+  .section-title{font-size:13px;color:var(--accent);letter-spacing:.8px;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+  .section-title::before{content:'';width:3px;height:14px;background:var(--accent);border-radius:2px;display:block;}
 
   /* SUPPLIER BLOCK */
-  .supplier-block { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 18px; overflow: hidden; }
+  .supplier-block{border:1px solid var(--border);border-radius:10px;margin-bottom:18px;overflow:hidden;}
+  .supplier-header{display:flex;align-items:center;gap:10px;padding:13px 16px;background:var(--card);border-bottom:1px solid var(--border);flex-wrap:wrap;}
+  .supplier-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
+  .supplier-name-input{flex:1;min-width:140px;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;outline:none;padding:2px 4px;transition:border .2s;}
+  .supplier-name-input:focus{border-bottom-color:var(--accent);}
+  .supplier-name-input::placeholder{color:#444;font-weight:400;}
+  .btn-remove-sup{padding:6px 14px;background:transparent;border:1px solid var(--danger);color:var(--danger);border-radius:7px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:600;white-space:nowrap;transition:all .2s;}
+  .btn-remove-sup:hover{background:var(--danger);color:#fff;}
 
-  .supplier-header {
-    display: flex; align-items: center; gap: 10px;
-    padding: 13px 16px; background: var(--card); border-bottom: 1px solid var(--border);
-    flex-wrap: wrap;
-  }
-  .supplier-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; white-space: nowrap; }
-  .supplier-name-input {
-    flex: 1; min-width: 140px; background: transparent; border: none;
-    border-bottom: 1px solid var(--border); color: var(--text);
-    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
-    outline: none; padding: 2px 4px; transition: border .2s;
-  }
-  .supplier-name-input:focus { border-bottom-color: var(--accent); }
-  .supplier-name-input::placeholder { color: #444; font-weight: 400; }
-  .btn-remove-sup {
-    padding: 6px 14px; background: transparent; border: 1px solid var(--danger);
-    color: var(--danger); border-radius: 7px; cursor: pointer; font-size: 12px;
-    font-family: 'DM Sans', sans-serif; font-weight: 600; white-space: nowrap; transition: all .2s;
-  }
-  .btn-remove-sup:hover { background: var(--danger); color: #fff; }
+  .supplier-bill-section{padding:12px 16px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.01);}
+  .bill-mini-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+  .upload-mini{border:1px dashed var(--border);border-radius:8px;padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;position:relative;transition:border .2s;}
+  .upload-mini:hover{border-color:var(--accent);}
+  .upload-mini input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .upload-mini-icon{font-size:20px;}
+  .upload-mini-text{font-size:13px;color:var(--muted);}
+  .bill-mini-preview{display:none;align-items:center;gap:10px;margin-top:8px;}
+  .bill-mini-thumb{width:52px;height:52px;object-fit:cover;border-radius:6px;border:1px solid var(--border);cursor:pointer;}
+  .bill-mini-info{flex:1;}
+  .bill-mini-name{font-size:12px;color:var(--muted);}
+  .btn-remove-bill{padding:4px 10px;background:transparent;border:1px solid var(--danger);color:var(--danger);border-radius:5px;cursor:pointer;font-size:11px;transition:all .2s;}
+  .btn-remove-bill:hover{background:var(--danger);color:#fff;}
 
-  /* Bill upload inside supplier */
-  .supplier-bill-section { padding: 12px 16px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,.01); }
-  .bill-mini-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+  .supplier-items-wrap{padding:12px 16px 8px;}
+  .items-mini-table{width:100%;border-collapse:collapse;margin-bottom:10px;}
+  .items-mini-table th{text-align:left;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;padding:6px 8px;border-bottom:1px solid var(--border);}
+  .items-mini-table td{padding:7px 8px;border-bottom:1px solid #1c1c1c;vertical-align:middle;}
+  .items-mini-table td input{width:100%;background:transparent;border:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;padding:3px 0;}
+  .items-mini-table td input:focus{border-bottom:1px solid var(--accent);}
+  .item-sub{font-size:13px;color:var(--accent);font-weight:600;text-align:right;white-space:nowrap;}
+  .del-item-btn{background:none;border:none;color:var(--danger);cursor:pointer;font-size:18px;padding:0 4px;border-radius:4px;transition:background .2s;}
+  .del-item-btn:hover{background:rgba(224,90,90,.15);}
+  .add-item-btn{padding:7px 14px;background:transparent;border:1px dashed var(--border);color:var(--muted);border-radius:7px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all .2s;}
+  .add-item-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .supplier-footer{display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid var(--border);}
+  .supplier-sub-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;}
+  .supplier-sub-value{color:var(--accent);font-weight:600;font-size:16px;}
 
-  .upload-mini {
-    border: 1px dashed var(--border); border-radius: 8px; padding: 12px 16px;
-    display: flex; align-items: center; gap: 10px; cursor: pointer; position: relative; transition: border .2s;
-  }
-  .upload-mini:hover { border-color: var(--accent); }
-  .upload-mini input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-  .upload-mini-icon { font-size: 20px; }
-  .upload-mini-text { font-size: 13px; color: var(--muted); }
+  .add-supplier-btn{width:100%;padding:13px;margin-bottom:20px;background:transparent;border:2px dashed var(--border);color:var(--muted);border-radius:10px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;transition:all .2s;}
+  .add-supplier-btn:hover{border-color:var(--accent);color:var(--accent);}
 
-  .bill-mini-preview { display: none; align-items: center; gap: 10px; margin-top: 8px; }
-  .bill-mini-thumb { width: 52px; height: 52px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; }
-  .bill-mini-info { flex: 1; }
-  .bill-mini-name { font-size: 12px; color: var(--muted); }
-  .btn-remove-bill {
-    padding: 4px 10px; background: transparent; border: 1px solid var(--danger);
-    color: var(--danger); border-radius: 5px; cursor: pointer; font-size: 11px; transition: all .2s;
-  }
-  .btn-remove-bill:hover { background: var(--danger); color: #fff; }
-
-  /* Items table */
-  .supplier-items-wrap { padding: 12px 16px 8px; }
-  .items-mini-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
-  .items-mini-table th {
-    text-align: left; font-size: 11px; color: var(--muted); text-transform: uppercase;
-    letter-spacing: .4px; padding: 6px 8px; border-bottom: 1px solid var(--border);
-  }
-  .items-mini-table td { padding: 7px 8px; border-bottom: 1px solid #1c1c1c; vertical-align: middle; }
-  .items-mini-table td input {
-    width: 100%; background: transparent; border: none; color: var(--text);
-    font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; padding: 3px 0;
-  }
-  .items-mini-table td input:focus { border-bottom: 1px solid var(--accent); }
-  .item-sub { font-size: 13px; color: var(--accent); font-weight: 600; text-align: right; white-space: nowrap; }
-  .del-item-btn {
-    background: none; border: none; color: var(--danger); cursor: pointer;
-    font-size: 18px; padding: 0 4px; border-radius: 4px; transition: background .2s;
-  }
-  .del-item-btn:hover { background: rgba(224,90,90,.15); }
-
-  .add-item-btn {
-    padding: 7px 14px; background: transparent; border: 1px dashed var(--border);
-    color: var(--muted); border-radius: 7px; cursor: pointer;
-    font-size: 12px; font-family: 'DM Sans', sans-serif; transition: all .2s;
-  }
-  .add-item-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  .supplier-footer {
-    display: flex; justify-content: flex-end; align-items: center;
-    gap: 12px; padding: 10px 16px; border-top: 1px solid var(--border);
-  }
-  .supplier-sub-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; }
-  .supplier-sub-value { color: var(--accent); font-weight: 600; font-size: 16px; }
-
-  .add-supplier-btn {
-    width: 100%; padding: 13px; margin-bottom: 20px; background: transparent;
-    border: 2px dashed var(--border); color: var(--muted); border-radius: 10px;
-    cursor: pointer; font-size: 14px; font-family: 'DM Sans', sans-serif; transition: all .2s;
-  }
-  .add-supplier-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  .grand-total-bar {
-    display: flex; justify-content: flex-end; align-items: center; gap: 16px;
-    padding: 20px 24px; background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); margin-bottom: 20px;
-  }
-  .grand-total-label { color: var(--muted); font-size: 14px; letter-spacing: .4px; text-transform: uppercase; }
-  .grand-total-value { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--accent); }
-
-  .save-bar { display: flex; justify-content: flex-end; margin-bottom: 32px; }
-  .btn-save {
-    padding: 13px 36px; background: linear-gradient(135deg, var(--accent), #a07030);
-    border: none; border-radius: 10px; color: #000; font-size: 15px; font-weight: 600;
-    cursor: pointer; font-family: 'DM Sans', sans-serif; transition: opacity .2s;
-  }
-  .btn-save:hover { opacity: .85; }
+  .grand-total-bar{display:flex;justify-content:flex-end;align-items:center;gap:16px;padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;}
+  .grand-total-label{color:var(--muted);font-size:14px;letter-spacing:.4px;text-transform:uppercase;}
+  .grand-total-value{font-family:'Playfair Display',serif;font-size:32px;color:var(--accent);}
+  .save-bar{display:flex;justify-content:flex-end;margin-bottom:32px;}
+  .btn-save{padding:13px 36px;background:linear-gradient(135deg,var(--accent),#a07030);border:none;border-radius:10px;color:#000;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s;}
+  .btn-save:hover{opacity:.85;}
+  .btn-save:disabled{opacity:.5;cursor:not-allowed;}
 
   /* OWNER */
-  .expense-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 14px; margin-bottom: 24px; }
-  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
-  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
-  .stat-value { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--accent); }
-
-  .owner-supplier-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; overflow: hidden; }
-  .owner-supplier-header {
-    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
-    padding: 14px 18px; background: var(--card); border-bottom: 1px solid var(--border);
-  }
-  .owner-supplier-name { font-size: 15px; font-weight: 600; }
-  .owner-supplier-right { display: flex; align-items: center; gap: 12px; }
-  .owner-supplier-total { color: var(--accent); font-weight: 600; font-size: 15px; }
-  .bill-btn {
-    padding: 6px 16px; background: transparent; border: 1px solid var(--accent);
-    color: var(--accent); border-radius: 7px; cursor: pointer; font-size: 12px;
-    font-family: 'DM Sans', sans-serif; transition: all .2s;
-  }
-  .bill-btn:hover { background: var(--accent); color: #000; }
-
-  .owner-items-table { width: 100%; border-collapse: collapse; }
-  .owner-items-table th {
-    text-align: left; font-size: 11px; color: var(--muted); text-transform: uppercase;
-    letter-spacing: .4px; padding: 10px 18px; border-bottom: 1px solid var(--border);
-  }
-  .owner-items-table td { padding: 10px 18px; border-bottom: 1px solid #1c1c1c; font-size: 14px; }
-  .owner-items-table tr:last-child td { border-bottom: none; }
-
-  .owner-grand-total {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 16px 20px; background: rgba(212,168,83,.07);
-    border: 1px solid rgba(212,168,83,.2); border-radius: var(--radius); margin-bottom: 32px;
-  }
-  .owner-grand-label { color: var(--muted); text-transform: uppercase; font-size: 13px; letter-spacing: .5px; }
-  .owner-grand-value { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--accent); }
-
-  .no-data { text-align: center; padding: 60px 20px; color: var(--muted); }
-  .no-data-icon { font-size: 48px; margin-bottom: 12px; }
+  .expense-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px;}
+  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;}
+  .stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+  .stat-value{font-family:'Playfair Display',serif;font-size:26px;color:var(--accent);}
+  .owner-supplier-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;}
+  .owner-supplier-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:14px 18px;background:var(--card);border-bottom:1px solid var(--border);}
+  .owner-supplier-name{font-size:15px;font-weight:600;}
+  .owner-supplier-right{display:flex;align-items:center;gap:12px;}
+  .owner-supplier-total{color:var(--accent);font-weight:600;font-size:15px;}
+  .bill-btn{padding:6px 16px;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:7px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all .2s;}
+  .bill-btn:hover{background:var(--accent);color:#000;}
+  .owner-items-table{width:100%;border-collapse:collapse;}
+  .owner-items-table th{text-align:left;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;padding:10px 18px;border-bottom:1px solid var(--border);}
+  .owner-items-table td{padding:10px 18px;border-bottom:1px solid #1c1c1c;font-size:14px;}
+  .owner-items-table tr:last-child td{border-bottom:none;}
+  .owner-grand-total{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:rgba(212,168,83,.07);border:1px solid rgba(212,168,83,.2);border-radius:var(--radius);margin-bottom:32px;}
+  .owner-grand-label{color:var(--muted);text-transform:uppercase;font-size:13px;letter-spacing:.5px;}
+  .owner-grand-value{font-family:'Playfair Display',serif;font-size:28px;color:var(--accent);}
+  .no-data{text-align:center;padding:60px 20px;color:var(--muted);}
+  .no-data-icon{font-size:48px;margin-bottom:12px;}
 
   /* MODAL */
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.9); z-index: 200; align-items: center; justify-content: center; }
-  .modal-overlay.open { display: flex; }
-  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; max-width: 540px; width: 94%; position: relative; }
-  .modal h3 { font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 16px; font-size: 20px; }
-  .modal-img { width: 100%; border-radius: 8px; max-height: 440px; object-fit: contain; background: #111; }
-  .modal-close {
-    position: absolute; top: 16px; right: 16px; background: var(--card); border: none;
-    color: var(--text); width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
-    font-size: 18px; display: flex; align-items: center; justify-content: center; transition: background .2s;
-  }
-  .modal-close:hover { background: var(--danger); }
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:200;align-items:center;justify-content:center;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;max-width:540px;width:94%;position:relative;}
+  .modal h3{font-family:'Playfair Display',serif;color:var(--accent);margin-bottom:16px;font-size:20px;}
+  .modal-img{width:100%;border-radius:8px;max-height:440px;object-fit:contain;background:#111;}
+  .modal-close{position:absolute;top:16px;right:16px;background:var(--card);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+  .modal-close:hover{background:var(--danger);}
 
-  .toast {
-    position: fixed; bottom: 24px; right: 24px; background: var(--success); color: #000;
-    padding: 12px 22px; border-radius: 10px; font-size: 14px; font-weight: 500;
-    transform: translateY(80px); opacity: 0; transition: all .3s; z-index: 1000;
-  }
-  .toast.show { transform: translateY(0); opacity: 1; }
+  .loading-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+  .spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .loading-text{color:var(--muted);font-size:14px;}
 
-  @media (max-width: 600px) {
-    .login-box { padding: 32px 20px; margin: 16px; }
-    .content { padding: 14px; }
+  .toast{position:fixed;bottom:24px;right:24px;background:var(--success);color:#000;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:500;transform:translateY(80px);opacity:0;transition:all .3s;z-index:1000;}
+  .toast.show{transform:translateY(0);opacity:1;}
+
+  @media(max-width:600px){
+    .login-box,.setup-box{padding:28px 18px;margin:16px;}
+    .content{padding:14px;}
   }
 </style>
 </head>
 <body>
 
-<!-- ===== LOGIN ===== -->
-<div id="login-screen" class="screen active">
+<!-- LOADING -->
+<div class="loading-overlay" id="loading-overlay">
+  <div class="spinner"></div>
+  <div class="loading-text">Connecting…</div>
+</div>
+
+<!-- SETUP SCREEN (shown once if Firebase not configured) -->
+<div id="setup-screen" class="screen">
+  <div class="setup-box">
+    <h2>⚙️ One-time Firebase Setup</h2>
+    <p>This app needs Firebase to sync data across all devices. Follow the steps below (takes ~5 minutes, completely free).</p>
+
+    <div class="setup-step">
+      <span class="setup-step-num">1</span><strong>Create Firebase project</strong>
+      <p>Go to <strong>console.firebase.google.com</strong> → Click <strong>"Add project"</strong> → Name it (e.g. <code>expense-manager</code>) → Disable Google Analytics → Click <strong>"Create project"</strong></p>
+    </div>
+
+    <div class="setup-step">
+      <span class="setup-step-num">2</span><strong>Enable Firestore Database</strong>
+      <p>In your project → Left sidebar → <strong>"Firestore Database"</strong> → <strong>"Create database"</strong> → Choose <strong>"Start in test mode"</strong> → Select any location → Click <strong>"Enable"</strong></p>
+    </div>
+
+    <div class="setup-step">
+      <span class="setup-step-num">3</span><strong>Get your config keys</strong>
+      <p>In Firebase → Click ⚙️ gear icon → <strong>"Project settings"</strong> → Scroll down → Under "Your apps" click <strong>"&lt;/&gt; Web"</strong> → Register app → Copy the <code>firebaseConfig</code> values below:</p>
+      <input type="text" id="cfg-apiKey" placeholder="apiKey  (e.g. AIzaSyXXXXXXX)" />
+      <input type="text" id="cfg-projectId" placeholder="projectId  (e.g. expense-manager-abc12)" style="margin-top:8px;" />
+      <input type="text" id="cfg-appId" placeholder="appId  (e.g. 1:123456:web:abcdef)" style="margin-top:8px;" />
+    </div>
+
+    <button class="btn-setup" onclick="saveFirebaseConfig()">✅ Connect &amp; Continue</button>
+    <div class="setup-error" id="setup-error"></div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="login-screen" class="screen">
   <div class="login-box">
     <div class="brand">
       <div class="brand-icon">📒</div>
@@ -281,48 +225,52 @@
     <button class="btn-primary" onclick="doLogin()">Sign In</button>
     <div class="error-msg" id="login-error">❌ Invalid username or password</div>
     <div style="margin-top:20px;padding:12px;background:var(--card);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.8;">
-      <strong style="color:var(--accent);">Demo credentials:</strong><br>
+      <strong style="color:var(--accent);">Default credentials:</strong><br>
       Accountant → <code>accountant</code> / <code>acc123</code><br>
       Owner → <code>owner</code> / <code>own123</code>
     </div>
   </div>
 </div>
 
-<!-- ===== ACCOUNTANT ===== -->
+<!-- ACCOUNTANT -->
 <div id="acc-screen" class="screen">
   <div class="topbar">
     <span class="topbar-brand">📒 LedgerDesk</span>
-    <span class="topbar-role">Accountant</span>
-    <button class="btn-logout" onclick="logout()">Logout</button>
+    <div class="topbar-right">
+      <span class="sync-indicator synced" id="sync-status">✓ Synced</span>
+      <span class="topbar-role">Accountant</span>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
   </div>
   <div class="content">
     <div class="date-bar">
       <label>📅 Date:</label>
       <input type="date" id="acc-date" onchange="loadAccData()" />
     </div>
-
     <div class="section-card">
       <div class="section-title">Suppliers, Bills &amp; Items</div>
       <div id="suppliers-wrap"></div>
       <button class="add-supplier-btn" onclick="addSupplier()">＋ Add Supplier</button>
     </div>
-
     <div class="grand-total-bar">
       <span class="grand-total-label">Grand Total</span>
       <span class="grand-total-value" id="grand-total">₹0.00</span>
     </div>
     <div class="save-bar">
-      <button class="btn-save" onclick="saveData()">💾 Save Entry</button>
+      <button class="btn-save" id="btn-save" onclick="saveData()">💾 Save Entry</button>
     </div>
   </div>
 </div>
 
-<!-- ===== OWNER ===== -->
+<!-- OWNER -->
 <div id="owner-screen" class="screen">
   <div class="topbar">
     <span class="topbar-brand">📒 LedgerDesk</span>
-    <span class="topbar-role">Owner</span>
-    <button class="btn-logout" onclick="logout()">Logout</button>
+    <div class="topbar-right">
+      <span class="sync-indicator synced" id="owner-sync-status">✓ Live</span>
+      <span class="topbar-role">Owner</span>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
   </div>
   <div class="content">
     <div class="owner-date-bar">
@@ -337,16 +285,86 @@
 <!-- Bill Modal -->
 <div class="modal-overlay" id="bill-modal" onclick="closeBillModal(event)">
   <div class="modal">
-    <button class="modal-close" onclick="closeBillModal()">✕</button>
+    <button class="modal-close" onclick="document.getElementById('bill-modal').classList.remove('open')">✕</button>
     <h3 id="modal-title">🧾 Bill Image</h3>
     <img class="modal-img" id="modal-img" src="" alt="Bill" style="display:none" />
-    <p id="modal-no-bill" style="color:var(--muted);font-size:14px;display:none;">No bill image uploaded for this supplier.</p>
+    <p id="modal-no-bill" style="color:var(--muted);font-size:14px;display:none;">No bill image for this supplier.</p>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script>
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+// ===== FIREBASE INIT =====
+let db = null;
+
+function loadConfig() {
+  const raw = localStorage.getItem('fb_config');
+  return raw ? JSON.parse(raw) : null;
+}
+
+async function initFirebase(config) {
+  try {
+    const app = initializeApp(config);
+    db = getFirestore(app);
+    // test connection
+    await getDoc(doc(db, 'entries', '_test'));
+    return true;
+  } catch(e) {
+    return false;
+  }
+}
+
+window.saveFirebaseConfig = async function() {
+  const apiKey = document.getElementById('cfg-apiKey').value.trim();
+  const projectId = document.getElementById('cfg-projectId').value.trim();
+  const appId = document.getElementById('cfg-appId').value.trim();
+  const errEl = document.getElementById('setup-error');
+
+  if (!apiKey || !projectId || !appId) {
+    errEl.textContent = '❌ Please fill in all three fields.';
+    errEl.style.display = 'block'; return;
+  }
+
+  const config = {
+    apiKey, projectId, appId,
+    authDomain: `${projectId}.firebaseapp.com`,
+    storageBucket: `${projectId}.appspot.com`,
+    messagingSenderId: '000000000000'
+  };
+
+  showLoading('Testing connection…');
+  const ok = await initFirebase(config);
+  hideLoading();
+
+  if (ok) {
+    localStorage.setItem('fb_config', JSON.stringify(config));
+    showScreen('login-screen');
+    showToast('✅ Firebase connected!');
+  } else {
+    errEl.textContent = '❌ Could not connect. Check your apiKey, projectId, and appId. Also make sure Firestore is enabled in Test mode.';
+    errEl.style.display = 'block';
+  }
+};
+
+// ===== STARTUP =====
+const cfg = loadConfig();
+if (cfg) {
+  showLoading('Connecting to database…');
+  initFirebase(cfg).then(ok => {
+    hideLoading();
+    if (ok) showScreen('login-screen');
+    else { localStorage.removeItem('fb_config'); showScreen('setup-screen'); }
+  });
+} else {
+  hideLoading();
+  showScreen('setup-screen');
+}
+
 // ===== AUTH =====
 const USERS = {
   accountant: { pass: 'acc123', role: 'accountant' },
@@ -354,14 +372,14 @@ const USERS = {
 };
 let currentRole = 'accountant';
 
-function setRole(r) {
+window.setRole = function(r) {
   currentRole = r;
   document.querySelectorAll('.role-tab').forEach((t, i) => {
-    t.classList.toggle('active', (i === 0 && r === 'accountant') || (i === 1 && r === 'owner'));
+    t.classList.toggle('active', (i===0&&r==='accountant')||(i===1&&r==='owner'));
   });
-}
+};
 
-function doLogin() {
+window.doLogin = function() {
   const u = document.getElementById('username').value.trim();
   const p = document.getElementById('password').value;
   const user = USERS[u];
@@ -370,38 +388,25 @@ function doLogin() {
     err.style.display = 'none';
     showScreen(currentRole === 'accountant' ? 'acc-screen' : 'owner-screen');
     currentRole === 'accountant' ? initAccountant() : initOwner();
-  } else {
-    err.style.display = 'block';
-  }
-}
+  } else { err.style.display = 'block'; }
+};
 
-function logout() {
+window.logout = function() {
   showScreen('login-screen');
   document.getElementById('username').value = '';
   document.getElementById('password').value = '';
-}
+};
 
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+// ===== FIRESTORE HELPERS =====
+async function fbSave(date, data) {
+  await setDoc(doc(db, 'entries', date), data);
 }
-
-// ===== STORAGE =====
-function getKey(date) { return 'ledger_' + date; }
-function saveEntry(date, data) { localStorage.setItem(getKey(date), JSON.stringify(data)); }
-function loadEntry(date) {
-  const r = localStorage.getItem(getKey(date));
-  return r ? JSON.parse(r) : null;
-}
-function todayStr() { return new Date().toISOString().split('T')[0]; }
-function formatDate(s) {
-  if (!s) return '';
-  const [y, m, d] = s.split('-');
-  return `${parseInt(d)} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m-1]} ${y}`;
+async function fbLoad(date) {
+  const snap = await getDoc(doc(db, 'entries', date));
+  return snap.exists() ? snap.data() : null;
 }
 
 // ===== STATE =====
-// suppliers = [ { name, billDataUrl, billName, items: [{name, qty, price}] } ]
 let suppliers = [];
 
 function initAccountant() {
@@ -409,39 +414,41 @@ function initAccountant() {
   loadAccData();
 }
 
-function loadAccData() {
+async function loadAccData() {
   const date = document.getElementById('acc-date').value;
-  const entry = loadEntry(date);
-  suppliers = (entry && entry.suppliers) ? entry.suppliers : [];
+  if (!date) return;
+  setSyncStatus('syncing', '↻ Loading…');
+  try {
+    const entry = await fbLoad(date);
+    suppliers = (entry && entry.suppliers) ? entry.suppliers : [];
+    setSyncStatus('synced', '✓ Synced');
+  } catch(e) {
+    setSyncStatus('error', '✗ Offline');
+    suppliers = [];
+  }
   renderAll();
 }
+window.loadAccData = loadAccData;
 
-// ===== SUPPLIER ACTIONS =====
-function addSupplier() {
-  suppliers.push({ name: '', billDataUrl: null, billName: '', items: [{ name: '', qty: 1, price: 0 }] });
+// ===== SUPPLIER =====
+window.addSupplier = function() {
+  suppliers.push({ name: '', billDataUrl: null, billName: '', items: [{ name:'', qty:1, price:0 }] });
   renderAll();
-  // focus new supplier name
   setTimeout(() => {
     const inputs = document.querySelectorAll('.supplier-name-input');
-    if (inputs.length) inputs[inputs.length - 1].focus();
+    if (inputs.length) inputs[inputs.length-1].focus();
   }, 50);
-}
+};
 
-function removeSupplier(si) {
+window.removeSupplier = function(si) {
   suppliers.splice(si, 1);
   renderAll();
-}
+};
 
-function updateSupplierName(si, val) {
-  suppliers[si].name = val;
-}
+window.updateSupplierName = function(si, val) { suppliers[si].name = val; };
 
-// ===== BILL ACTIONS =====
-function triggerBillUpload(si) {
-  document.getElementById('bill-input-' + si).click();
-}
-
-function handleBillUpload(si, input) {
+// ===== BILL =====
+window.handleBillUpload = function(si, input) {
   const file = input.files[0];
   if (!file) return;
   const reader = new FileReader();
@@ -451,135 +458,119 @@ function handleBillUpload(si, input) {
     renderBillSection(si);
   };
   reader.readAsDataURL(file);
-}
+};
 
-function removeBill(si) {
+window.removeBill = function(si) {
   suppliers[si].billDataUrl = null;
   suppliers[si].billName = '';
   renderBillSection(si);
-}
+};
 
 function renderBillSection(si) {
-  const uploadEl = document.getElementById('bill-upload-' + si);
-  const previewEl = document.getElementById('bill-preview-' + si);
-  const thumbEl = document.getElementById('bill-thumb-' + si);
-  const nameEl = document.getElementById('bill-name-' + si);
-  if (!uploadEl || !previewEl) return;
+  const uploadEl = document.getElementById('bill-upload-'+si);
+  const previewEl = document.getElementById('bill-preview-'+si);
+  const thumbEl = document.getElementById('bill-thumb-'+si);
+  const nameEl = document.getElementById('bill-name-'+si);
+  if (!uploadEl) return;
   const sup = suppliers[si];
   if (sup.billDataUrl) {
     uploadEl.style.display = 'none';
     previewEl.style.display = 'flex';
-    thumbEl.src = sup.billDataUrl;
-    nameEl.textContent = sup.billName;
+    if (thumbEl) thumbEl.src = sup.billDataUrl;
+    if (nameEl) nameEl.textContent = sup.billName;
   } else {
     uploadEl.style.display = 'flex';
     previewEl.style.display = 'none';
   }
 }
 
-// ===== ITEM ACTIONS =====
-function addItem(si) {
-  suppliers[si].items.push({ name: '', qty: 1, price: 0 });
+window.previewBill = function(si) {
+  const sup = suppliers[si];
+  openModal(sup ? sup.billDataUrl : null, sup ? sup.name : '');
+};
+
+// ===== ITEMS =====
+window.addItem = function(si) {
+  suppliers[si].items.push({ name:'', qty:1, price:0 });
   renderAll();
   setTimeout(() => {
-    const tbody = document.getElementById('items-body-' + si);
+    const tbody = document.getElementById('items-body-'+si);
     if (tbody) {
       const rows = tbody.querySelectorAll('tr');
-      const last = rows[rows.length - 1];
+      const last = rows[rows.length-1];
       if (last) { const inp = last.querySelector('input'); if (inp) inp.focus(); }
     }
   }, 50);
-}
+};
 
-function removeItem(si, ii) {
-  if (suppliers[si].items.length === 1) {
-    showToast('Each supplier needs at least 1 item', true);
-    return;
-  }
+window.removeItem = function(si, ii) {
+  if (suppliers[si].items.length === 1) { showToast('At least 1 item needed', true); return; }
   suppliers[si].items.splice(ii, 1);
   renderAll();
-}
+};
 
-function updateItemField(si, ii, field, val) {
-  suppliers[si].items[ii][field] = (field === 'qty' || field === 'price') ? (parseFloat(val) || 0) : val;
+window.updateItemField = function(si, ii, field, val) {
+  suppliers[si].items[ii][field] = (field==='qty'||field==='price') ? (parseFloat(val)||0) : val;
   refreshTotals();
-}
+};
 
 // ===== TOTALS =====
 function supplierTotal(si) {
-  return suppliers[si].items.reduce((s, it) => s + ((it.price || 0) * (it.qty || 1)), 0);
+  return suppliers[si].items.reduce((s,it) => s + ((it.price||0)*(it.qty||1)), 0);
 }
 function calcGrand() {
-  return suppliers.reduce((s, _, si) => s + supplierTotal(si), 0);
+  return suppliers.reduce((s,_,si) => s + supplierTotal(si), 0);
 }
 function refreshTotals() {
-  suppliers.forEach((_, si) => {
-    const el = document.getElementById('sup-total-' + si);
-    if (el) el.textContent = '₹' + supplierTotal(si).toFixed(2);
-    suppliers[si].items.forEach((it, ii) => {
-      const cel = document.getElementById('isub-' + si + '-' + ii);
-      if (cel) cel.textContent = '₹' + ((it.price || 0) * (it.qty || 1)).toFixed(2);
+  suppliers.forEach((_,si) => {
+    const el = document.getElementById('sup-total-'+si);
+    if (el) el.textContent = '₹'+supplierTotal(si).toFixed(2);
+    suppliers[si].items.forEach((it,ii) => {
+      const cel = document.getElementById('isub-'+si+'-'+ii);
+      if (cel) cel.textContent = '₹'+((it.price||0)*(it.qty||1)).toFixed(2);
     });
   });
   const gt = document.getElementById('grand-total');
-  if (gt) gt.textContent = '₹' + calcGrand().toFixed(2);
+  if (gt) gt.textContent = '₹'+calcGrand().toFixed(2);
 }
 
 // ===== RENDER =====
 function renderAll() {
   const wrap = document.getElementById('suppliers-wrap');
+  if (!wrap) return;
   if (suppliers.length === 0) {
     wrap.innerHTML = `<p style="color:var(--muted);font-size:14px;text-align:center;padding:24px 0 8px;">No suppliers yet. Click "＋ Add Supplier" below.</p>`;
     const gt = document.getElementById('grand-total');
     if (gt) gt.textContent = '₹0.00';
     return;
   }
-
   wrap.innerHTML = suppliers.map((sup, si) => {
     const itemRows = sup.items.map((it, ii) => `
       <tr>
-        <td style="color:var(--muted);font-size:12px;width:24px">${ii + 1}</td>
-        <td><input value="${esc(it.name)}" placeholder="Item name"
-          oninput="updateItemField(${si},${ii},'name',this.value)" /></td>
-        <td style="width:68px"><input value="${it.qty || 1}" type="number" min="1" style="text-align:center"
-          oninput="updateItemField(${si},${ii},'qty',this.value)" /></td>
-        <td style="width:110px"><input value="${it.price || ''}" type="number" min="0" step="0.01" placeholder="0.00"
-          oninput="updateItemField(${si},${ii},'price',this.value)" /></td>
+        <td style="color:var(--muted);font-size:12px;width:24px">${ii+1}</td>
+        <td><input value="${esc(it.name)}" placeholder="Item name" oninput="updateItemField(${si},${ii},'name',this.value)"/></td>
+        <td style="width:68px"><input value="${it.qty||1}" type="number" min="1" style="text-align:center" oninput="updateItemField(${si},${ii},'qty',this.value)"/></td>
+        <td style="width:110px"><input value="${it.price||''}" type="number" min="0" step="0.01" placeholder="0.00" oninput="updateItemField(${si},${ii},'price',this.value)"/></td>
         <td class="item-sub" id="isub-${si}-${ii}">₹${((it.price||0)*(it.qty||1)).toFixed(2)}</td>
-        <td style="width:30px;text-align:center">
-          <button class="del-item-btn" onclick="removeItem(${si},${ii})">×</button>
-        </td>
-      </tr>
-    `).join('');
-
-    const hasBill = sup.billDataUrl;
-
+        <td style="width:30px;text-align:center"><button class="del-item-btn" onclick="removeItem(${si},${ii})">×</button></td>
+      </tr>`).join('');
+    const hasBill = !!sup.billDataUrl;
     return `
       <div class="supplier-block" id="sup-block-${si}">
-
-        <!-- Header -->
         <div class="supplier-header">
           <span class="supplier-label">Supplier</span>
-          <input class="supplier-name-input" placeholder="Enter supplier name…"
-            value="${esc(sup.name)}" oninput="updateSupplierName(${si}, this.value)" />
+          <input class="supplier-name-input" placeholder="Enter supplier name…" value="${esc(sup.name)}" oninput="updateSupplierName(${si},this.value)"/>
           <button class="btn-remove-sup" onclick="removeSupplier(${si})">✕ Remove</button>
         </div>
-
-        <!-- Bill upload per supplier -->
         <div class="supplier-bill-section">
-          <div class="bill-mini-label">🧾 Bill / Invoice for this supplier</div>
-
-          <div class="upload-mini" id="bill-upload-${si}" style="${hasBill ? 'display:none' : 'display:flex'}">
-            <input type="file" id="bill-input-${si}" accept="image/*"
-              onchange="handleBillUpload(${si}, this)" />
+          <div class="bill-mini-label">🧾 Bill for this supplier</div>
+          <div class="upload-mini" id="bill-upload-${si}" style="${hasBill?'display:none':'display:flex'}">
+            <input type="file" id="bill-input-${si}" accept="image/*" onchange="handleBillUpload(${si},this)"/>
             <span class="upload-mini-icon">📎</span>
             <span class="upload-mini-text">Click to attach bill image</span>
           </div>
-
-          <div class="bill-mini-preview" id="bill-preview-${si}" style="${hasBill ? 'display:flex' : 'display:none'}">
-            <img class="bill-mini-thumb" id="bill-thumb-${si}"
-              src="${hasBill ? sup.billDataUrl : ''}"
-              onclick="previewBill(${si})" title="Click to view full bill" />
+          <div class="bill-mini-preview" id="bill-preview-${si}" style="${hasBill?'display:flex':'display:none'}">
+            <img class="bill-mini-thumb" id="bill-thumb-${si}" src="${hasBill?sup.billDataUrl:''}" onclick="previewBill(${si})" title="Click to view"/>
             <div class="bill-mini-info">
               <div class="bill-mini-name" id="bill-name-${si}">${esc(sup.billName)}</div>
               <div style="margin-top:4px;display:flex;gap:8px;">
@@ -589,177 +580,181 @@ function renderAll() {
             </div>
           </div>
         </div>
-
-        <!-- Items -->
         <div class="supplier-items-wrap">
           <table class="items-mini-table">
-            <thead>
-              <tr>
-                <th>#</th><th>Item Name</th>
-                <th style="text-align:center">Qty</th>
-                <th>Price (₹)</th>
-                <th style="text-align:right">Subtotal</th>
-                <th></th>
-              </tr>
-            </thead>
+            <thead><tr><th>#</th><th>Item Name</th><th style="text-align:center">Qty</th><th>Price (₹)</th><th style="text-align:right">Subtotal</th><th></th></tr></thead>
             <tbody id="items-body-${si}">${itemRows}</tbody>
           </table>
           <button class="add-item-btn" onclick="addItem(${si})">＋ Add Item</button>
         </div>
-
-        <!-- Supplier footer total -->
         <div class="supplier-footer">
           <span class="supplier-sub-label">Supplier Total</span>
           <span class="supplier-sub-value" id="sup-total-${si}">₹${supplierTotal(si).toFixed(2)}</span>
         </div>
-
-      </div>
-    `;
+      </div>`;
   }).join('');
-
   const gt = document.getElementById('grand-total');
-  if (gt) gt.textContent = '₹' + calcGrand().toFixed(2);
+  if (gt) gt.textContent = '₹'+calcGrand().toFixed(2);
 }
 
 // ===== SAVE =====
-function saveData() {
+window.saveData = async function() {
   const date = document.getElementById('acc-date').value;
   if (!date) { showToast('Please select a date', true); return; }
-  saveEntry(date, { date, suppliers });
-  showToast('✅ Saved for ' + formatDate(date));
-}
+  const btn = document.getElementById('btn-save');
+  btn.disabled = true; btn.textContent = '⏳ Saving…';
+  setSyncStatus('syncing', '↻ Saving…');
+  try {
+    await fbSave(date, { date, suppliers, updatedAt: new Date().toISOString() });
+    setSyncStatus('synced', '✓ Synced');
+    showToast('✅ Saved & synced for ' + formatDate(date));
+  } catch(e) {
+    setSyncStatus('error', '✗ Save failed');
+    showToast('❌ Save failed. Check internet.', true);
+  } finally {
+    btn.disabled = false; btn.textContent = '💾 Save Entry';
+  }
+};
 
 // ===== OWNER =====
 function initOwner() {
   document.getElementById('owner-date').value = todayStr();
   loadOwnerData();
 }
-function loadOwnerData() {
+
+async function loadOwnerData() {
   const date = document.getElementById('owner-date').value;
-  const entry = loadEntry(date);
-  renderOwnerSummary(entry);
-  renderOwnerContent(entry);
+  if (!date) return;
+  const oSync = document.getElementById('owner-sync-status');
+  oSync.className = 'sync-indicator syncing'; oSync.textContent = '↻ Loading…';
+  try {
+    const entry = await fbLoad(date);
+    oSync.className = 'sync-indicator synced'; oSync.textContent = '✓ Live';
+    renderOwnerSummary(entry);
+    renderOwnerContent(entry);
+  } catch(e) {
+    oSync.className = 'sync-indicator error'; oSync.textContent = '✗ Offline';
+    renderOwnerSummary(null);
+    renderOwnerContent(null);
+  }
 }
+window.loadOwnerData = loadOwnerData;
 
 function renderOwnerSummary(entry) {
   const wrap = document.getElementById('owner-summary');
-  if (!entry || !entry.suppliers || !entry.suppliers.length) { wrap.innerHTML = ''; return; }
-  const total = entry.suppliers.reduce((s, sup) =>
-    s + sup.items.reduce((ss, it) => ss + ((it.price||0)*(it.qty||1)), 0), 0);
-  const itemCount = entry.suppliers.reduce((s, sup) => s + sup.items.length, 0);
-  const billCount = entry.suppliers.filter(s => s.billDataUrl).length;
-  wrap.innerHTML = `
+  if (!entry||!entry.suppliers||!entry.suppliers.length){wrap.innerHTML='';return;}
+  const total = entry.suppliers.reduce((s,sup)=>s+sup.items.reduce((ss,it)=>ss+((it.price||0)*(it.qty||1)),0),0);
+  const itemCount = entry.suppliers.reduce((s,sup)=>s+sup.items.length,0);
+  const billCount = entry.suppliers.filter(s=>s.billDataUrl).length;
+  wrap.innerHTML=`
     <div class="stat-card"><div class="stat-label">Total Expenses</div><div class="stat-value">₹${total.toFixed(2)}</div></div>
     <div class="stat-card"><div class="stat-label">Suppliers</div><div class="stat-value">${entry.suppliers.length}</div></div>
     <div class="stat-card"><div class="stat-label">Items</div><div class="stat-value">${itemCount}</div></div>
-    <div class="stat-card"><div class="stat-label">Bills Uploaded</div><div class="stat-value">${billCount}</div></div>
-  `;
+    <div class="stat-card"><div class="stat-label">Bills Uploaded</div><div class="stat-value">${billCount}</div></div>`;
 }
 
 function renderOwnerContent(entry) {
   const wrap = document.getElementById('owner-content');
-  if (!entry || !entry.suppliers || !entry.suppliers.length) {
-    wrap.innerHTML = `<div class="no-data"><div class="no-data-icon">📭</div><p>No expense data for this date.</p></div>`;
+  if (!entry||!entry.suppliers||!entry.suppliers.length){
+    wrap.innerHTML=`<div class="no-data"><div class="no-data-icon">📭</div><p>No expense data for this date.</p></div>`;
     return;
   }
-  const grandT = entry.suppliers.reduce((s, sup) =>
-    s + sup.items.reduce((ss, it) => ss + ((it.price||0)*(it.qty||1)), 0), 0);
-
-  const cards = entry.suppliers.map((sup, si) => {
-    const supTotal = sup.items.reduce((s, it) => s + ((it.price||0)*(it.qty||1)), 0);
-    const rows = sup.items.map((it, i) => `
+  window._ownerEntry = entry;
+  const grandT = entry.suppliers.reduce((s,sup)=>s+sup.items.reduce((ss,it)=>ss+((it.price||0)*(it.qty||1)),0),0);
+  const cards = entry.suppliers.map((sup,si)=>{
+    const supTotal = sup.items.reduce((s,it)=>s+((it.price||0)*(it.qty||1)),0);
+    const rows = sup.items.map((it,i)=>`
       <tr>
         <td>${i+1}</td>
-        <td>${esc(it.name) || '<span style="color:var(--muted)">—</span>'}</td>
+        <td>${esc(it.name)||'<span style="color:var(--muted)">—</span>'}</td>
         <td style="text-align:center">${it.qty||1}</td>
         <td>₹${(it.price||0).toFixed(2)}</td>
         <td style="color:var(--accent);font-weight:600;">₹${((it.price||0)*(it.qty||1)).toFixed(2)}</td>
-      </tr>
-    `).join('');
-
+      </tr>`).join('');
     const billBtn = sup.billDataUrl
-      ? `<button class="bill-btn" onclick="ownerPreviewBill(${si})">🧾 View Bill</button>`
+      ? `<button class="bill-btn" onclick="ownerViewBill(${si})">🧾 View Bill</button>`
       : `<span style="color:var(--muted);font-size:12px;font-style:italic;">No bill</span>`;
-
     return `
       <div class="owner-supplier-card">
         <div class="owner-supplier-header">
-          <span class="owner-supplier-name">🏪 ${esc(sup.name) || 'Unnamed Supplier'}</span>
-          <div class="owner-supplier-right">
-            ${billBtn}
-            <span class="owner-supplier-total">₹${supTotal.toFixed(2)}</span>
-          </div>
+          <span class="owner-supplier-name">🏪 ${esc(sup.name)||'Unnamed Supplier'}</span>
+          <div class="owner-supplier-right">${billBtn}<span class="owner-supplier-total">₹${supTotal.toFixed(2)}</span></div>
         </div>
         <table class="owner-items-table">
           <thead><tr><th>#</th><th>Item</th><th style="text-align:center">Qty</th><th>Unit Price</th><th>Amount</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
-      </div>
-    `;
+      </div>`;
   }).join('');
-
-  wrap.innerHTML = `
-    ${cards}
+  wrap.innerHTML = `${cards}
     <div class="owner-grand-total">
       <span class="owner-grand-label">Grand Total</span>
       <span class="owner-grand-value">₹${grandT.toFixed(2)}</span>
-    </div>
-  `;
-
-  // store entry reference for owner bill preview
-  window._ownerEntry = entry;
+    </div>`;
 }
 
-// ===== BILL PREVIEW MODAL =====
-function previewBill(si) {
-  const sup = suppliers[si];
-  openModal(sup.billDataUrl, sup.name);
-}
+window.ownerViewBill = function(si) {
+  const entry = window._ownerEntry;
+  if (!entry) return;
+  const sup = entry.suppliers[si];
+  openModal(sup ? sup.billDataUrl : null, sup ? sup.name : '');
+};
 
-function ownerPreviewBill(si) {
-  const sup = window._ownerEntry && window._ownerEntry.suppliers[si];
-  if (!sup) return;
-  openModal(sup.billDataUrl, sup.name);
-}
-
-function openModal(dataUrl, supplierName) {
+// ===== MODAL =====
+function openModal(dataUrl, name) {
   const modal = document.getElementById('bill-modal');
+  document.getElementById('modal-title').textContent = '🧾 Bill — ' + (name || 'Supplier');
   const img = document.getElementById('modal-img');
   const noB = document.getElementById('modal-no-bill');
-  const title = document.getElementById('modal-title');
-  title.textContent = '🧾 Bill — ' + (supplierName || 'Supplier');
-  if (dataUrl) {
-    img.src = dataUrl; img.style.display = 'block'; noB.style.display = 'none';
-  } else {
-    img.style.display = 'none'; noB.style.display = 'block';
-  }
+  if (dataUrl) { img.src = dataUrl; img.style.display='block'; noB.style.display='none'; }
+  else { img.style.display='none'; noB.style.display='block'; }
   modal.classList.add('open');
 }
 
-function closeBillModal(e) {
-  if (e && e.target !== document.getElementById('bill-modal')) return;
-  document.getElementById('bill-modal').classList.remove('open');
-}
+window.closeBillModal = function(e) {
+  if (!e || e.target === document.getElementById('bill-modal'))
+    document.getElementById('bill-modal').classList.remove('open');
+};
 
 // ===== UTILS =====
-function esc(str) {
-  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
-function showToast(msg, err = false) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.style.background = err ? 'var(--danger)' : 'var(--success)';
-  t.style.color = err ? '#fff' : '#000';
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+window.showScreen = showScreen;
+
+function showLoading(msg) {
+  document.getElementById('loading-overlay').style.display = 'flex';
+  document.querySelector('.loading-text').textContent = msg || 'Loading…';
+}
+function hideLoading() { document.getElementById('loading-overlay').style.display = 'none'; }
+
+function setSyncStatus(state, msg) {
+  const el = document.getElementById('sync-status');
+  if (!el) return;
+  el.className = 'sync-indicator ' + state;
+  el.textContent = msg;
 }
 
-document.getElementById('password').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-document.getElementById('username').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-window.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('acc-date').value = todayStr();
-  document.getElementById('owner-date').value = todayStr();
-});
+function todayStr() { return new Date().toISOString().split('T')[0]; }
+function formatDate(s) {
+  if (!s) return '';
+  const [y,m,d] = s.split('-');
+  return `${parseInt(d)} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m-1]} ${y}`;
+}
+function esc(str) {
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function showToast(msg, err=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.background = err ? 'var(--danger)' : 'var(--success)';
+  t.style.color = err ? '#fff' : '#000';
+  t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500);
+}
+window.showToast = showToast;
+
+document.getElementById('password').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+document.getElementById('username').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
 </script>
 </body>
 </html>
