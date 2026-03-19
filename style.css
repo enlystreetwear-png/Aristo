@@ -1,0 +1,110 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Body */
+body {
+  background: #f5f7fb;
+  padding: 20px;
+}
+
+/* Headings */
+h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* Buttons */
+button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 15px;
+}
+
+button:hover {
+  background: #45a049;
+}
+
+/* App container */
+#app {
+  margin-top: 20px;
+}
+
+/* Card style for each bill */
+.bill-card {
+  background: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Image */
+.bill-card img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Text inside card */
+.bill-card p {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* Total section */
+.total-box {
+  background: #e8f5e9;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: bold;
+  color: #2e7d32;
+  text-align: center;
+}
+
+/* Date input + button row */
+.date-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.date-row input {
+  flex: 1;
+}
+
+.date-row button {
+  width: auto;
+  padding: 10px 15px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .bill-card img {
+    max-width: 100%;
+  }
+}
