@@ -98,13 +98,17 @@ function showAccountantPage() {
   loadBillsForAccountant();
 }
 
+let unsubscribe = null;
+
 function loadBillsForAccountant() {
   const date = document.getElementById("selectedDate").value;
 
-  db.collection("bills")
+  // stop old listener
+  if (unsubscribe) unsubscribe();
+
+  unsubscribe = db.collection("bills")
     .where("date", "==", date)
-    .get()
-    .then(snapshot => {
+    .onSnapshot(snapshot => {
 
       let html = "";
       let total = 0;
@@ -116,7 +120,6 @@ function loadBillsForAccountant() {
         html += `
           <div class="bill-card">
             <img src="${data.imageUrl}">
-            
             <p><strong>Total:</strong> ${data.total}</p>
             <p><strong>Items:</strong> ${data.items.join(", ")}</p>
 
@@ -131,6 +134,7 @@ function loadBillsForAccountant() {
       document.getElementById("billList").innerHTML = html;
     });
 }
+
 
 function deleteBill(id) {
   if (confirm("Delete this bill?")) {
@@ -159,10 +163,11 @@ function saveBill() {
   const imageUrl = document.getElementById("imageUrl").value;
   const items = document.getElementById("items").value.split(",");
   const total = Number(document.getElementById("total").value);
-  const date = new Date().toISOString().split("T")[0];
+
+  // 👉 IMPORTANT: use selected date instead of always today
+  const date = document.getElementById("selectedDate").value;
 
   if (editingId) {
-    // ✏️ UPDATE
     db.collection("bills").doc(editingId).update({
       imageUrl,
       items,
@@ -170,11 +175,12 @@ function saveBill() {
     }).then(() => {
       editingId = null;
       alert("Updated!");
-      loadBillsForAccountant();
+
+      clearForm();              // ✅ clear inputs
+      loadBillsForAccountant(); // ✅ AUTO refresh
     });
 
   } else {
-    // ➕ ADD
     db.collection("bills").add({
       date,
       items,
@@ -182,15 +188,18 @@ function saveBill() {
       imageUrl
     }).then(() => {
       alert("Saved!");
-      loadBillsForAccountant();
+
+      clearForm();              // ✅ clear inputs
+      loadBillsForAccountant(); // ✅ AUTO refresh
     });
   }
-
-  document.getElementById("imageUrl").value = "";
-document.getElementById("items").value = "";
-document.getElementById("total").value = "";
-
 }
+function clearForm() {
+  document.getElementById("imageUrl").value = "";
+  document.getElementById("items").value = "";
+  document.getElementById("total").value = "";
+}
+
 
 
 
