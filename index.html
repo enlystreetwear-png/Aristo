@@ -15,21 +15,6 @@
   .screen{display:none;min-height:100vh;}
   .screen.active{display:flex;flex-direction:column;}
 
-  /* SETUP SCREEN */
-  #setup-screen{align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 20%,#001a1a 0%,#0f0f0f 60%);}
-  .setup-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px;width:100%;max-width:520px;box-shadow:0 30px 80px rgba(0,0,0,.6);}
-  .setup-box h2{font-family:'Playfair Display',serif;color:var(--accent);font-size:22px;margin-bottom:8px;}
-  .setup-box p{color:var(--muted);font-size:13px;margin-bottom:24px;line-height:1.6;}
-  .setup-step{background:var(--card);border-radius:10px;padding:16px;margin-bottom:14px;border:1px solid var(--border);}
-  .setup-step-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--accent);color:#000;border-radius:50%;font-size:12px;font-weight:700;margin-right:8px;}
-  .setup-step p{margin-bottom:10px;margin-top:6px;font-size:13px;color:var(--muted);}
-  .setup-step code{background:#111;color:var(--accent);padding:2px 7px;border-radius:4px;font-size:12px;}
-  .setup-step input{width:100%;padding:10px 14px;background:#111;border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;margin-top:6px;}
-  .setup-step input:focus{border-color:var(--accent);}
-  .btn-setup{width:100%;padding:13px;background:linear-gradient(135deg,var(--accent),#a07030);border:none;border-radius:10px;color:#000;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;margin-top:10px;transition:opacity .2s;}
-  .btn-setup:hover{opacity:.85;}
-  .setup-error{color:var(--danger);font-size:13px;margin-top:10px;display:none;}
-
   /* LOGIN */
   #login-screen{align-items:center;justify-content:center;background:radial-gradient(ellipse at 30% 20%,#1e1500 0%,#0f0f0f 60%);}
   .login-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:48px 40px;width:100%;max-width:420px;box-shadow:0 30px 80px rgba(0,0,0,.6);}
@@ -47,6 +32,10 @@
   .btn-primary{width:100%;padding:14px;background:linear-gradient(135deg,var(--accent),#a07030);border:none;border-radius:10px;color:#000;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .2s;}
   .btn-primary:hover{opacity:.85;}
   .error-msg{color:var(--danger);font-size:13px;text-align:center;margin-top:12px;display:none;}
+
+  /* NOT CONFIGURED warning */
+  .config-warning{background:rgba(224,90,90,.1);border:1px solid rgba(224,90,90,.3);border-radius:10px;padding:16px;margin-top:16px;font-size:13px;color:#f0a0a0;line-height:1.7;display:none;}
+  .config-warning strong{color:var(--danger);}
 
   /* TOPBAR */
   .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;}
@@ -151,7 +140,7 @@
   .modal-close{position:absolute;top:16px;right:16px;background:var(--card);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:background .2s;}
   .modal-close:hover{background:var(--danger);}
 
-  .loading-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+  .loading-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
   .spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
   .loading-text{color:var(--muted);font-size:14px;}
@@ -160,7 +149,7 @@
   .toast.show{transform:translateY(0);opacity:1;}
 
   @media(max-width:600px){
-    .login-box,.setup-box{padding:28px 18px;margin:16px;}
+    .login-box{padding:28px 18px;margin:16px;}
     .content{padding:14px;}
   }
 </style>
@@ -170,36 +159,7 @@
 <!-- LOADING -->
 <div class="loading-overlay" id="loading-overlay">
   <div class="spinner"></div>
-  <div class="loading-text">Connecting…</div>
-</div>
-
-<!-- SETUP SCREEN (shown once if Firebase not configured) -->
-<div id="setup-screen" class="screen">
-  <div class="setup-box">
-    <h2>⚙️ One-time Firebase Setup</h2>
-    <p>This app needs Firebase to sync data across all devices. Follow the steps below (takes ~5 minutes, completely free).</p>
-
-    <div class="setup-step">
-      <span class="setup-step-num">1</span><strong>Create Firebase project</strong>
-      <p>Go to <strong>console.firebase.google.com</strong> → Click <strong>"Add project"</strong> → Name it (e.g. <code>expense-manager</code>) → Disable Google Analytics → Click <strong>"Create project"</strong></p>
-    </div>
-
-    <div class="setup-step">
-      <span class="setup-step-num">2</span><strong>Enable Firestore Database</strong>
-      <p>In your project → Left sidebar → <strong>"Firestore Database"</strong> → <strong>"Create database"</strong> → Choose <strong>"Start in test mode"</strong> → Select any location → Click <strong>"Enable"</strong></p>
-    </div>
-
-    <div class="setup-step">
-      <span class="setup-step-num">3</span><strong>Get your config keys</strong>
-      <p>In Firebase → Click ⚙️ gear icon → <strong>"Project settings"</strong> → Scroll down → Under "Your apps" click <strong>"&lt;/&gt; Web"</strong> → Register app → Copy the <code>firebaseConfig</code> values below:</p>
-      <input type="text" id="cfg-apiKey" placeholder="apiKey  (e.g. AIzaSyXXXXXXX)" />
-      <input type="text" id="cfg-projectId" placeholder="projectId  (e.g. expense-manager-abc12)" style="margin-top:8px;" />
-      <input type="text" id="cfg-appId" placeholder="appId  (e.g. 1:123456:web:abcdef)" style="margin-top:8px;" />
-    </div>
-
-    <button class="btn-setup" onclick="saveFirebaseConfig()">✅ Connect &amp; Continue</button>
-    <div class="setup-error" id="setup-error"></div>
-  </div>
+  <div class="loading-text" id="loading-text">Starting…</div>
 </div>
 
 <!-- LOGIN -->
@@ -224,10 +184,13 @@
     </div>
     <button class="btn-primary" onclick="doLogin()">Sign In</button>
     <div class="error-msg" id="login-error">❌ Invalid username or password</div>
-    <div style="margin-top:20px;padding:12px;background:var(--card);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.8;">
-      <strong style="color:var(--accent);">Default credentials:</strong><br>
-      Accountant → <code>accountant</code> / <code>acc123</code><br>
-      Owner → <code>owner</code> / <code>own123</code>
+
+    <!-- shown only if user forgot to fill config -->
+    <div class="config-warning" id="config-warning">
+      <strong>⚠️ Firebase not configured yet.</strong><br>
+      Open <code>index.html</code> in a text editor, find the line that says<br>
+      <code>YOUR_API_KEY_HERE</code> and replace all 3 placeholders with your Firebase keys.<br>
+      Then re-upload to GitHub. See the guide below.
     </div>
   </div>
 </div>
@@ -287,83 +250,56 @@
   <div class="modal">
     <button class="modal-close" onclick="document.getElementById('bill-modal').classList.remove('open')">✕</button>
     <h3 id="modal-title">🧾 Bill Image</h3>
-    <img class="modal-img" id="modal-img" src="" alt="Bill" style="display:none" />
+    <img class="modal-img" id="modal-img" src="" alt="Bill" style="display:none"/>
     <p id="modal-no-bill" style="color:var(--muted);font-size:14px;display:none;">No bill image for this supplier.</p>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- Firebase SDK -->
 <script type="module">
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { initializeApp }      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-// ===== FIREBASE INIT =====
+// ============================================================
+//  🔧 PASTE YOUR FIREBASE VALUES HERE (do this only once)
+//     Then upload index.html to GitHub — works on ALL devices
+// ============================================================
+const FIREBASE_CONFIG = {
+  apiKey:            "AIzaSyAMqZpc0u8WqE8mby9tLGn9HpkiOhwjz8I",
+  authDomain:        "aristo-46e2f.firebaseapp.com",
+  projectId:         "aristo-46e2f",
+  storageBucket:     "aristo-46e2f.firebasestorage.app",
+  messagingSenderId: "976927618183",
+  appId:             "1:976927618183:web:4d3c3cf76b2707699bb422"
+};
+// ============================================================
+
+const IS_CONFIGURED = !FIREBASE_CONFIG.apiKey.includes('YOUR_');
+
 let db = null;
 
-function loadConfig() {
-  const raw = localStorage.getItem('fb_config');
-  return raw ? JSON.parse(raw) : null;
-}
-
-async function initFirebase(config) {
-  try {
-    const app = initializeApp(config);
-    db = getFirestore(app);
-    // test connection
-    await getDoc(doc(db, 'entries', '_test'));
-    return true;
-  } catch(e) {
-    return false;
-  }
-}
-
-window.saveFirebaseConfig = async function() {
-  const apiKey = document.getElementById('cfg-apiKey').value.trim();
-  const projectId = document.getElementById('cfg-projectId').value.trim();
-  const appId = document.getElementById('cfg-appId').value.trim();
-  const errEl = document.getElementById('setup-error');
-
-  if (!apiKey || !projectId || !appId) {
-    errEl.textContent = '❌ Please fill in all three fields.';
-    errEl.style.display = 'block'; return;
-  }
-
-  const config = {
-    apiKey, projectId, appId,
-    authDomain: `${projectId}.firebaseapp.com`,
-    storageBucket: `${projectId}.appspot.com`,
-    messagingSenderId: '000000000000'
-  };
-
-  showLoading('Testing connection…');
-  const ok = await initFirebase(config);
-  hideLoading();
-
-  if (ok) {
-    localStorage.setItem('fb_config', JSON.stringify(config));
-    showScreen('login-screen');
-    showToast('✅ Firebase connected!');
-  } else {
-    errEl.textContent = '❌ Could not connect. Check your apiKey, projectId, and appId. Also make sure Firestore is enabled in Test mode.';
-    errEl.style.display = 'block';
-  }
-};
-
-// ===== STARTUP =====
-const cfg = loadConfig();
-if (cfg) {
-  showLoading('Connecting to database…');
-  initFirebase(cfg).then(ok => {
+async function startApp() {
+  if (!IS_CONFIGURED) {
     hideLoading();
-    if (ok) showScreen('login-screen');
-    else { localStorage.removeItem('fb_config'); showScreen('setup-screen'); }
-  });
-} else {
-  hideLoading();
-  showScreen('setup-screen');
+    showScreen('login-screen');
+    document.getElementById('config-warning').style.display = 'block';
+    return;
+  }
+  try {
+    setLoadingText('Connecting to database…');
+    const app = initializeApp(FIREBASE_CONFIG);
+    db = getFirestore(app);
+    await getDoc(doc(db, 'entries', '_ping')); // test connection
+    hideLoading();
+    showScreen('login-screen');
+  } catch(e) {
+    hideLoading();
+    showScreen('login-screen');
+    showToast('⚠️ Could not reach database. Check internet.', true);
+  }
 }
+startApp();
 
 // ===== AUTH =====
 const USERS = {
@@ -372,37 +308,38 @@ const USERS = {
 };
 let currentRole = 'accountant';
 
-window.setRole = function(r) {
+window.setRole = r => {
   currentRole = r;
-  document.querySelectorAll('.role-tab').forEach((t, i) => {
-    t.classList.toggle('active', (i===0&&r==='accountant')||(i===1&&r==='owner'));
-  });
+  document.querySelectorAll('.role-tab').forEach((t,i) =>
+    t.classList.toggle('active',(i===0&&r==='accountant')||(i===1&&r==='owner')));
 };
 
-window.doLogin = function() {
+window.doLogin = () => {
   const u = document.getElementById('username').value.trim();
   const p = document.getElementById('password').value;
   const user = USERS[u];
   const err = document.getElementById('login-error');
-  if (user && user.pass === p && user.role === currentRole) {
-    err.style.display = 'none';
-    showScreen(currentRole === 'accountant' ? 'acc-screen' : 'owner-screen');
-    currentRole === 'accountant' ? initAccountant() : initOwner();
-  } else { err.style.display = 'block'; }
+  if (user && user.pass===p && user.role===currentRole) {
+    err.style.display='none';
+    showScreen(currentRole==='accountant'?'acc-screen':'owner-screen');
+    currentRole==='accountant' ? initAccountant() : initOwner();
+  } else { err.style.display='block'; }
 };
 
-window.logout = function() {
+window.logout = () => {
   showScreen('login-screen');
-  document.getElementById('username').value = '';
-  document.getElementById('password').value = '';
+  document.getElementById('username').value='';
+  document.getElementById('password').value='';
 };
 
-// ===== FIRESTORE HELPERS =====
+// ===== FIRESTORE =====
 async function fbSave(date, data) {
-  await setDoc(doc(db, 'entries', date), data);
+  if (!db) throw new Error('No DB');
+  await setDoc(doc(db,'entries',date), data);
 }
 async function fbLoad(date) {
-  const snap = await getDoc(doc(db, 'entries', date));
+  if (!db) throw new Error('No DB');
+  const snap = await getDoc(doc(db,'entries',date));
   return snap.exists() ? snap.data() : null;
 }
 
@@ -417,40 +354,39 @@ function initAccountant() {
 async function loadAccData() {
   const date = document.getElementById('acc-date').value;
   if (!date) return;
-  setSyncStatus('syncing', '↻ Loading…');
+  setSyncStatus('syncing','↻ Loading…');
   try {
     const entry = await fbLoad(date);
     suppliers = (entry && entry.suppliers) ? entry.suppliers : [];
-    setSyncStatus('synced', '✓ Synced');
+    setSyncStatus('synced','✓ Synced');
   } catch(e) {
-    setSyncStatus('error', '✗ Offline');
+    setSyncStatus('error','✗ Offline');
     suppliers = [];
   }
   renderAll();
 }
 window.loadAccData = loadAccData;
 
-// ===== SUPPLIER =====
-window.addSupplier = function() {
-  suppliers.push({ name: '', billDataUrl: null, billName: '', items: [{ name:'', qty:1, price:0 }] });
+// ===== SUPPLIERS =====
+window.addSupplier = () => {
+  suppliers.push({name:'',billDataUrl:null,billName:'',items:[{name:'',qty:1,price:0}]});
   renderAll();
-  setTimeout(() => {
-    const inputs = document.querySelectorAll('.supplier-name-input');
-    if (inputs.length) inputs[inputs.length-1].focus();
-  }, 50);
+  setTimeout(()=>{
+    const ins = document.querySelectorAll('.supplier-name-input');
+    if(ins.length) ins[ins.length-1].focus();
+  },50);
 };
 
-window.removeSupplier = function(si) {
-  suppliers.splice(si, 1);
+window.removeSupplier = si => {
+  suppliers.splice(si,1);
   renderAll();
 };
 
-window.updateSupplierName = function(si, val) { suppliers[si].name = val; };
+window.updateSupplierName = (si,val) => { suppliers[si].name=val; };
 
 // ===== BILL =====
-window.handleBillUpload = function(si, input) {
-  const file = input.files[0];
-  if (!file) return;
+window.handleBillUpload = (si, input) => {
+  const file = input.files[0]; if(!file) return;
   const reader = new FileReader();
   reader.onload = ev => {
     suppliers[si].billDataUrl = ev.target.result;
@@ -460,92 +396,74 @@ window.handleBillUpload = function(si, input) {
   reader.readAsDataURL(file);
 };
 
-window.removeBill = function(si) {
-  suppliers[si].billDataUrl = null;
-  suppliers[si].billName = '';
+window.removeBill = si => {
+  suppliers[si].billDataUrl=null; suppliers[si].billName='';
   renderBillSection(si);
 };
 
 function renderBillSection(si) {
-  const uploadEl = document.getElementById('bill-upload-'+si);
-  const previewEl = document.getElementById('bill-preview-'+si);
-  const thumbEl = document.getElementById('bill-thumb-'+si);
-  const nameEl = document.getElementById('bill-name-'+si);
-  if (!uploadEl) return;
-  const sup = suppliers[si];
-  if (sup.billDataUrl) {
-    uploadEl.style.display = 'none';
-    previewEl.style.display = 'flex';
-    if (thumbEl) thumbEl.src = sup.billDataUrl;
-    if (nameEl) nameEl.textContent = sup.billName;
-  } else {
-    uploadEl.style.display = 'flex';
-    previewEl.style.display = 'none';
-  }
+  const up=document.getElementById('bill-upload-'+si);
+  const pr=document.getElementById('bill-preview-'+si);
+  const th=document.getElementById('bill-thumb-'+si);
+  const nm=document.getElementById('bill-name-'+si);
+  if(!up) return;
+  const sup=suppliers[si];
+  if(sup.billDataUrl){
+    up.style.display='none'; pr.style.display='flex';
+    if(th) th.src=sup.billDataUrl; if(nm) nm.textContent=sup.billName;
+  } else { up.style.display='flex'; pr.style.display='none'; }
 }
 
-window.previewBill = function(si) {
-  const sup = suppliers[si];
-  openModal(sup ? sup.billDataUrl : null, sup ? sup.name : '');
+window.previewBill = si => {
+  const sup=suppliers[si];
+  openModal(sup?sup.billDataUrl:null, sup?sup.name:'');
 };
 
 // ===== ITEMS =====
-window.addItem = function(si) {
-  suppliers[si].items.push({ name:'', qty:1, price:0 });
+window.addItem = si => {
+  suppliers[si].items.push({name:'',qty:1,price:0});
   renderAll();
-  setTimeout(() => {
-    const tbody = document.getElementById('items-body-'+si);
-    if (tbody) {
-      const rows = tbody.querySelectorAll('tr');
-      const last = rows[rows.length-1];
-      if (last) { const inp = last.querySelector('input'); if (inp) inp.focus(); }
-    }
-  }, 50);
+  setTimeout(()=>{
+    const tbody=document.getElementById('items-body-'+si);
+    if(tbody){ const rows=tbody.querySelectorAll('tr'); const last=rows[rows.length-1];
+      if(last){ const inp=last.querySelector('input'); if(inp) inp.focus(); }}
+  },50);
 };
 
-window.removeItem = function(si, ii) {
-  if (suppliers[si].items.length === 1) { showToast('At least 1 item needed', true); return; }
-  suppliers[si].items.splice(ii, 1);
-  renderAll();
+window.removeItem = (si,ii) => {
+  if(suppliers[si].items.length===1){showToast('At least 1 item needed',true);return;}
+  suppliers[si].items.splice(ii,1); renderAll();
 };
 
-window.updateItemField = function(si, ii, field, val) {
-  suppliers[si].items[ii][field] = (field==='qty'||field==='price') ? (parseFloat(val)||0) : val;
+window.updateItemField = (si,ii,field,val) => {
+  suppliers[si].items[ii][field]=(field==='qty'||field==='price')?(parseFloat(val)||0):val;
   refreshTotals();
 };
 
 // ===== TOTALS =====
-function supplierTotal(si) {
-  return suppliers[si].items.reduce((s,it) => s + ((it.price||0)*(it.qty||1)), 0);
-}
-function calcGrand() {
-  return suppliers.reduce((s,_,si) => s + supplierTotal(si), 0);
-}
-function refreshTotals() {
-  suppliers.forEach((_,si) => {
-    const el = document.getElementById('sup-total-'+si);
-    if (el) el.textContent = '₹'+supplierTotal(si).toFixed(2);
-    suppliers[si].items.forEach((it,ii) => {
-      const cel = document.getElementById('isub-'+si+'-'+ii);
-      if (cel) cel.textContent = '₹'+((it.price||0)*(it.qty||1)).toFixed(2);
+const supTotal = si => suppliers[si].items.reduce((s,it)=>s+((it.price||0)*(it.qty||1)),0);
+const grandTotal = () => suppliers.reduce((s,_,si)=>s+supTotal(si),0);
+
+function refreshTotals(){
+  suppliers.forEach((_,si)=>{
+    const el=document.getElementById('sup-total-'+si); if(el) el.textContent='₹'+supTotal(si).toFixed(2);
+    suppliers[si].items.forEach((it,ii)=>{
+      const cel=document.getElementById('isub-'+si+'-'+ii);
+      if(cel) cel.textContent='₹'+((it.price||0)*(it.qty||1)).toFixed(2);
     });
   });
-  const gt = document.getElementById('grand-total');
-  if (gt) gt.textContent = '₹'+calcGrand().toFixed(2);
+  const gt=document.getElementById('grand-total'); if(gt) gt.textContent='₹'+grandTotal().toFixed(2);
 }
 
 // ===== RENDER =====
-function renderAll() {
-  const wrap = document.getElementById('suppliers-wrap');
-  if (!wrap) return;
-  if (suppliers.length === 0) {
-    wrap.innerHTML = `<p style="color:var(--muted);font-size:14px;text-align:center;padding:24px 0 8px;">No suppliers yet. Click "＋ Add Supplier" below.</p>`;
-    const gt = document.getElementById('grand-total');
-    if (gt) gt.textContent = '₹0.00';
-    return;
+function renderAll(){
+  const wrap=document.getElementById('suppliers-wrap'); if(!wrap) return;
+  if(!suppliers.length){
+    wrap.innerHTML=`<p style="color:var(--muted);font-size:14px;text-align:center;padding:24px 0 8px;">No suppliers yet. Click "＋ Add Supplier" below.</p>`;
+    const gt=document.getElementById('grand-total'); if(gt) gt.textContent='₹0.00'; return;
   }
-  wrap.innerHTML = suppliers.map((sup, si) => {
-    const itemRows = sup.items.map((it, ii) => `
+  wrap.innerHTML=suppliers.map((sup,si)=>{
+    const rows=sup.items.map((it,ii)=>`
       <tr>
         <td style="color:var(--muted);font-size:12px;width:24px">${ii+1}</td>
         <td><input value="${esc(it.name)}" placeholder="Item name" oninput="updateItemField(${si},${ii},'name',this.value)"/></td>
@@ -554,9 +472,9 @@ function renderAll() {
         <td class="item-sub" id="isub-${si}-${ii}">₹${((it.price||0)*(it.qty||1)).toFixed(2)}</td>
         <td style="width:30px;text-align:center"><button class="del-item-btn" onclick="removeItem(${si},${ii})">×</button></td>
       </tr>`).join('');
-    const hasBill = !!sup.billDataUrl;
+    const hasBill=!!sup.billDataUrl;
     return `
-      <div class="supplier-block" id="sup-block-${si}">
+      <div class="supplier-block">
         <div class="supplier-header">
           <span class="supplier-label">Supplier</span>
           <input class="supplier-name-input" placeholder="Enter supplier name…" value="${esc(sup.name)}" oninput="updateSupplierName(${si},this.value)"/>
@@ -570,7 +488,7 @@ function renderAll() {
             <span class="upload-mini-text">Click to attach bill image</span>
           </div>
           <div class="bill-mini-preview" id="bill-preview-${si}" style="${hasBill?'display:flex':'display:none'}">
-            <img class="bill-mini-thumb" id="bill-thumb-${si}" src="${hasBill?sup.billDataUrl:''}" onclick="previewBill(${si})" title="Click to view"/>
+            <img class="bill-mini-thumb" id="bill-thumb-${si}" src="${hasBill?sup.billDataUrl:''}" onclick="previewBill(${si})" title="View"/>
             <div class="bill-mini-info">
               <div class="bill-mini-name" id="bill-name-${si}">${esc(sup.billName)}</div>
               <div style="margin-top:4px;display:flex;gap:8px;">
@@ -583,69 +501,63 @@ function renderAll() {
         <div class="supplier-items-wrap">
           <table class="items-mini-table">
             <thead><tr><th>#</th><th>Item Name</th><th style="text-align:center">Qty</th><th>Price (₹)</th><th style="text-align:right">Subtotal</th><th></th></tr></thead>
-            <tbody id="items-body-${si}">${itemRows}</tbody>
+            <tbody id="items-body-${si}">${rows}</tbody>
           </table>
           <button class="add-item-btn" onclick="addItem(${si})">＋ Add Item</button>
         </div>
         <div class="supplier-footer">
           <span class="supplier-sub-label">Supplier Total</span>
-          <span class="supplier-sub-value" id="sup-total-${si}">₹${supplierTotal(si).toFixed(2)}</span>
+          <span class="supplier-sub-value" id="sup-total-${si}">₹${supTotal(si).toFixed(2)}</span>
         </div>
       </div>`;
   }).join('');
-  const gt = document.getElementById('grand-total');
-  if (gt) gt.textContent = '₹'+calcGrand().toFixed(2);
+  const gt=document.getElementById('grand-total'); if(gt) gt.textContent='₹'+grandTotal().toFixed(2);
 }
 
 // ===== SAVE =====
-window.saveData = async function() {
-  const date = document.getElementById('acc-date').value;
-  if (!date) { showToast('Please select a date', true); return; }
-  const btn = document.getElementById('btn-save');
-  btn.disabled = true; btn.textContent = '⏳ Saving…';
-  setSyncStatus('syncing', '↻ Saving…');
+window.saveData = async () => {
+  const date=document.getElementById('acc-date').value;
+  if(!date){showToast('Please select a date',true);return;}
+  const btn=document.getElementById('btn-save');
+  btn.disabled=true; btn.textContent='⏳ Saving…';
+  setSyncStatus('syncing','↻ Saving…');
   try {
-    await fbSave(date, { date, suppliers, updatedAt: new Date().toISOString() });
-    setSyncStatus('synced', '✓ Synced');
-    showToast('✅ Saved & synced for ' + formatDate(date));
+    await fbSave(date,{date,suppliers,updatedAt:new Date().toISOString()});
+    setSyncStatus('synced','✓ Synced');
+    showToast('✅ Saved & synced for '+formatDate(date));
   } catch(e) {
-    setSyncStatus('error', '✗ Save failed');
-    showToast('❌ Save failed. Check internet.', true);
-  } finally {
-    btn.disabled = false; btn.textContent = '💾 Save Entry';
-  }
+    setSyncStatus('error','✗ Failed');
+    showToast('❌ Save failed. Check internet.',true);
+  } finally { btn.disabled=false; btn.textContent='💾 Save Entry'; }
 };
 
 // ===== OWNER =====
-function initOwner() {
-  document.getElementById('owner-date').value = todayStr();
+function initOwner(){
+  document.getElementById('owner-date').value=todayStr();
   loadOwnerData();
 }
 
-async function loadOwnerData() {
-  const date = document.getElementById('owner-date').value;
-  if (!date) return;
-  const oSync = document.getElementById('owner-sync-status');
-  oSync.className = 'sync-indicator syncing'; oSync.textContent = '↻ Loading…';
+async function loadOwnerData(){
+  const date=document.getElementById('owner-date').value; if(!date) return;
+  const oSync=document.getElementById('owner-sync-status');
+  oSync.className='sync-indicator syncing'; oSync.textContent='↻ Loading…';
   try {
-    const entry = await fbLoad(date);
-    oSync.className = 'sync-indicator synced'; oSync.textContent = '✓ Live';
-    renderOwnerSummary(entry);
-    renderOwnerContent(entry);
+    const entry=await fbLoad(date);
+    oSync.className='sync-indicator synced'; oSync.textContent='✓ Live';
+    renderOwnerSummary(entry); renderOwnerContent(entry);
   } catch(e) {
-    oSync.className = 'sync-indicator error'; oSync.textContent = '✗ Offline';
-    renderOwnerSummary(null);
-    renderOwnerContent(null);
+    oSync.className='sync-indicator error'; oSync.textContent='✗ Offline';
+    renderOwnerSummary(null); renderOwnerContent(null);
   }
 }
-window.loadOwnerData = loadOwnerData;
+window.loadOwnerData=loadOwnerData;
 
-function renderOwnerSummary(entry) {
-  const wrap = document.getElementById('owner-summary');
-  if (!entry||!entry.suppliers||!entry.suppliers.length){wrap.innerHTML='';return;}
-  const total = entry.suppliers.reduce((s,sup)=>s+sup.items.reduce((ss,it)=>ss+((it.price||0)*(it.qty||1)),0),0);
-  const itemCount = entry.suppliers.reduce((s,sup)=>s+sup.items.length,0);
-  const billCount = entry.suppliers.filter(s=>s.billDataUrl).length;
+function renderOwnerSummary(entry){
+  const wrap=document.getElementById('owner-summary');
+  if(!entry||!entry.suppliers||!entry.suppliers.length){wrap.innerHTML='';return;}
+  const total=entry.suppliers.reduce((s,sup)=>s+sup.items.reduce((ss,it)=>ss+((it.price||0)*(it.qty||1)),0),0);
+  const itemCount=entry.suppliers.reduce((s,sup)=>s+sup.items.length,0);
+  const billCount=entry.suppliers.filter(s=>s.billDataUrl).length;
   wrap.innerHTML=`
     <div class="stat-card"><div class="stat-label">Total Expenses</div><div class="stat-value">₹${total.toFixed(2)}</div></div>
     <div class="stat-card"><div class="stat-label">Suppliers</div><div class="stat-value">${entry.suppliers.length}</div></div>
@@ -653,17 +565,17 @@ function renderOwnerSummary(entry) {
     <div class="stat-card"><div class="stat-label">Bills Uploaded</div><div class="stat-value">${billCount}</div></div>`;
 }
 
-function renderOwnerContent(entry) {
-  const wrap = document.getElementById('owner-content');
-  if (!entry||!entry.suppliers||!entry.suppliers.length){
+function renderOwnerContent(entry){
+  const wrap=document.getElementById('owner-content');
+  if(!entry||!entry.suppliers||!entry.suppliers.length){
     wrap.innerHTML=`<div class="no-data"><div class="no-data-icon">📭</div><p>No expense data for this date.</p></div>`;
     return;
   }
-  window._ownerEntry = entry;
-  const grandT = entry.suppliers.reduce((s,sup)=>s+sup.items.reduce((ss,it)=>ss+((it.price||0)*(it.qty||1)),0),0);
-  const cards = entry.suppliers.map((sup,si)=>{
-    const supTotal = sup.items.reduce((s,it)=>s+((it.price||0)*(it.qty||1)),0);
-    const rows = sup.items.map((it,i)=>`
+  window._ownerEntry=entry;
+  const grandT=entry.suppliers.reduce((s,sup)=>s+sup.items.reduce((ss,it)=>ss+((it.price||0)*(it.qty||1)),0),0);
+  const cards=entry.suppliers.map((sup,si)=>{
+    const st=sup.items.reduce((s,it)=>s+((it.price||0)*(it.qty||1)),0);
+    const rows=sup.items.map((it,i)=>`
       <tr>
         <td>${i+1}</td>
         <td>${esc(it.name)||'<span style="color:var(--muted)">—</span>'}</td>
@@ -671,14 +583,14 @@ function renderOwnerContent(entry) {
         <td>₹${(it.price||0).toFixed(2)}</td>
         <td style="color:var(--accent);font-weight:600;">₹${((it.price||0)*(it.qty||1)).toFixed(2)}</td>
       </tr>`).join('');
-    const billBtn = sup.billDataUrl
-      ? `<button class="bill-btn" onclick="ownerViewBill(${si})">🧾 View Bill</button>`
-      : `<span style="color:var(--muted);font-size:12px;font-style:italic;">No bill</span>`;
+    const billBtn=sup.billDataUrl
+      ?`<button class="bill-btn" onclick="ownerViewBill(${si})">🧾 View Bill</button>`
+      :`<span style="color:var(--muted);font-size:12px;font-style:italic;">No bill</span>`;
     return `
       <div class="owner-supplier-card">
         <div class="owner-supplier-header">
           <span class="owner-supplier-name">🏪 ${esc(sup.name)||'Unnamed Supplier'}</span>
-          <div class="owner-supplier-right">${billBtn}<span class="owner-supplier-total">₹${supTotal.toFixed(2)}</span></div>
+          <div class="owner-supplier-right">${billBtn}<span class="owner-supplier-total">₹${st.toFixed(2)}</span></div>
         </div>
         <table class="owner-items-table">
           <thead><tr><th>#</th><th>Item</th><th style="text-align:center">Qty</th><th>Unit Price</th><th>Amount</th></tr></thead>
@@ -686,75 +598,61 @@ function renderOwnerContent(entry) {
         </table>
       </div>`;
   }).join('');
-  wrap.innerHTML = `${cards}
+  wrap.innerHTML=`${cards}
     <div class="owner-grand-total">
       <span class="owner-grand-label">Grand Total</span>
       <span class="owner-grand-value">₹${grandT.toFixed(2)}</span>
     </div>`;
 }
 
-window.ownerViewBill = function(si) {
-  const entry = window._ownerEntry;
-  if (!entry) return;
-  const sup = entry.suppliers[si];
-  openModal(sup ? sup.billDataUrl : null, sup ? sup.name : '');
+window.ownerViewBill = si => {
+  const entry=window._ownerEntry; if(!entry) return;
+  const sup=entry.suppliers[si];
+  openModal(sup?sup.billDataUrl:null, sup?sup.name:'');
 };
 
 // ===== MODAL =====
-function openModal(dataUrl, name) {
-  const modal = document.getElementById('bill-modal');
-  document.getElementById('modal-title').textContent = '🧾 Bill — ' + (name || 'Supplier');
-  const img = document.getElementById('modal-img');
-  const noB = document.getElementById('modal-no-bill');
-  if (dataUrl) { img.src = dataUrl; img.style.display='block'; noB.style.display='none'; }
-  else { img.style.display='none'; noB.style.display='block'; }
-  modal.classList.add('open');
+function openModal(dataUrl,name){
+  document.getElementById('modal-title').textContent='🧾 Bill — '+(name||'Supplier');
+  const img=document.getElementById('modal-img');
+  const noB=document.getElementById('modal-no-bill');
+  if(dataUrl){img.src=dataUrl;img.style.display='block';noB.style.display='none';}
+  else{img.style.display='none';noB.style.display='block';}
+  document.getElementById('bill-modal').classList.add('open');
 }
-
-window.closeBillModal = function(e) {
-  if (!e || e.target === document.getElementById('bill-modal'))
+window.closeBillModal=e=>{
+  if(!e||e.target===document.getElementById('bill-modal'))
     document.getElementById('bill-modal').classList.remove('open');
 };
 
 // ===== UTILS =====
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
-window.showScreen = showScreen;
-
-function showLoading(msg) {
-  document.getElementById('loading-overlay').style.display = 'flex';
-  document.querySelector('.loading-text').textContent = msg || 'Loading…';
+function setLoadingText(t){document.getElementById('loading-text').textContent=t;}
+function hideLoading(){document.getElementById('loading-overlay').style.display='none';}
+function setSyncStatus(state,msg){
+  const el=document.getElementById('sync-status'); if(!el) return;
+  el.className='sync-indicator '+state; el.textContent=msg;
 }
-function hideLoading() { document.getElementById('loading-overlay').style.display = 'none'; }
-
-function setSyncStatus(state, msg) {
-  const el = document.getElementById('sync-status');
-  if (!el) return;
-  el.className = 'sync-indicator ' + state;
-  el.textContent = msg;
-}
-
-function todayStr() { return new Date().toISOString().split('T')[0]; }
-function formatDate(s) {
-  if (!s) return '';
-  const [y,m,d] = s.split('-');
+function todayStr(){return new Date().toISOString().split('T')[0];}
+function formatDate(s){
+  if(!s) return '';
+  const [y,m,d]=s.split('-');
   return `${parseInt(d)} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m-1]} ${y}`;
 }
-function esc(str) {
-  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function esc(str){return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function showToast(msg,err=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.style.background=err?'var(--danger)':'var(--success)';
+  t.style.color=err?'#fff':'#000';
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3500);
 }
-function showToast(msg, err=false) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.style.background = err ? 'var(--danger)' : 'var(--success)';
-  t.style.color = err ? '#fff' : '#000';
-  t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500);
-}
-window.showToast = showToast;
+window.showToast=showToast;
 
-document.getElementById('password').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-document.getElementById('username').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+document.getElementById('password').addEventListener('keydown',e=>{if(e.key==='Enter') doLogin();});
+document.getElementById('username').addEventListener('keydown',e=>{if(e.key==='Enter') doLogin();});
 </script>
 </body>
 </html>
