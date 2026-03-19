@@ -15,14 +15,12 @@
       <div class="login-buttons login-buttons-3">
         <button id="accountantLoginBtn" type="button">Login as Accountant</button>
         <button id="ownerLoginBtn" class="secondary-btn" type="button">Login as Owner</button>
-        <button id="workerLoginBtn" class="worker-btn" type="button">Login as Worker</button>
       </div>
 
       <div class="demo-note">
         <p><strong>Demo login:</strong></p>
         <p>Accountant password: <strong>1234</strong></p>
         <p>Owner password: <strong>5678</strong></p>
-        <p>Worker password: <strong>9999</strong></p>
       </div>
 
       <form id="loginForm">
@@ -53,27 +51,16 @@
           <span>Total Purchase</span>
           <strong id="purchaseTotal">₹0</strong>
         </div>
-        <div class="summary-card">
-          <span>Total Salary</span>
-          <strong id="salaryTotal">₹0</strong>
-        </div>
+
         <div class="summary-card">
           <span>Total Expense</span>
           <strong id="expenseTotal">₹0</strong>
         </div>
-        <div class="summary-card">
-          <span>Total Sales</span>
-          <strong id="salesTotal">₹0</strong>
-        </div>
-        <div class="summary-card total">
-          <span>Net Profit</span>
-          <strong id="netProfitTotal">₹0</strong>
-        </div>
+
       </section>
 
       <section class="tabs">
         <button class="tab-btn active" data-tab="entryTab" type="button">Add Records</button>
-        <button class="tab-btn" data-tab="workersTab" type="button">Workers</button>
         <button class="tab-btn" data-tab="adminTab" type="button">Manage Records</button>
       </section>
 
@@ -133,36 +120,6 @@
           </div>
 
           <div class="forms-grid two-col">
-            <div class="card">
-              <h2>Add Worker Salary</h2>
-              <form id="salaryForm">
-                <label for="salaryWorker">Select Worker</label>
-                <select id="salaryWorker" required>
-                  <option value="">Select worker</option>
-                </select>
-
-                <label for="salaryAmount">Amount</label>
-                <input id="salaryAmount" type="number" min="0" required />
-
-                <label for="salaryType">Salary Type</label>
-                <select id="salaryType">
-                  <option value="daily">Daily</option>
-                  <option value="weekly">Weekly</option>
-                  <option value="monthly">Monthly</option>
-                </select>
-
-                <label for="salaryDate">Paid Date</label>
-                <input id="salaryDate" type="date" required />
-
-                <label for="salaryNote">Note</label>
-                <textarea id="salaryNote" rows="4"></textarea>
-
-                <label for="salaryBill">Bill Image</label>
-                <input id="salaryBill" type="file" accept="image/*" />
-
-                <button type="submit">Save Salary</button>
-              </form>
-            </div>
 
             <div class="card">
               <h2>Add Other Expense</h2>
@@ -369,22 +326,13 @@
           <span>Purchase</span>
           <strong id="ownerPurchaseTotal">₹0</strong>
         </div>
-        <div class="summary-card">
-          <span>Salary</span>
-          <strong id="ownerSalaryTotal">₹0</strong>
-        </div>
+
         <div class="summary-card">
           <span>Other Expense</span>
           <strong id="ownerExpenseTotal">₹0</strong>
         </div>
-        <div class="summary-card">
-          <span>Sales</span>
-          <strong id="ownerSalesTotal">₹0</strong>
-        </div>
-        <div class="summary-card total">
-          <span>Profit</span>
-          <strong id="ownerGrandTotal">₹0</strong>
-        </div>
+
+
       </section>
 
       <div class="card">
