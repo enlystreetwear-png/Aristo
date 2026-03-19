@@ -1,4 +1,4 @@
-// 🔥 Firebase Config
+// 🔥 Firebase Config (TOP)
 const firebaseConfig = {
   apiKey: "YOUR_KEY",
   authDomain: "YOUR_DOMAIN",
@@ -9,22 +9,14 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 
-// 👥 USERS (Hardcoded)
+// 👥 USERS
 const users = [
-  {
-    email: "accountant@gmail.com",
-    password: "1234",
-    role: "accountant"
-  },
-  {
-    email: "owner@gmail.com",
-    password: "1234",
-    role: "owner"
-  }
+  { email: "accountant@gmail.com", password: "1234", role: "accountant" },
+  { email: "owner@gmail.com", password: "1234", role: "owner" }
 ];
 
 
-// 🔐 LOGIN FUNCTION
+// 🔐 LOGIN
 function login() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -33,28 +25,20 @@ function login() {
 
   if (user) {
     localStorage.setItem("role", user.role);
+    document.getElementById("loginPage").style.display = "none";
     loadApp();
   } else {
     alert("Invalid login");
   }
-  
-  if (user) {
-  localStorage.setItem("role", user.role);
-
-  document.getElementById("loginPage").style.display = "none"; // 👈 hide login
-
-  loadApp();
-}
-
 }
 
 
-// 🔄 LOAD APP BASED ON ROLE
+// 🔄 LOAD APP
 function loadApp() {
   const role = localStorage.getItem("role");
 
   if (role) {
-    document.getElementById("loginPage").style.display = "none"; // 👈 hide login
+    document.getElementById("loginPage").style.display = "none";
   }
 
   if (role === "accountant") {
@@ -65,16 +49,20 @@ function loadApp() {
 }
 
 
-
 // 👨‍💼 ACCOUNTANT PAGE
 function showAccountantPage() {
   document.getElementById("app").innerHTML = `
     <h2>Accountant Dashboard</h2>
 
     <h3>Add Bill</h3>
+
     <input type="text" id="imageUrl" placeholder="Paste Image URL"><br><br>
-    <input type="text" id="items" placeholder="Items (comma separated)"><br><br>
-    <input type="number" id="total" placeholder="Total"><br><br>
+
+    <div id="itemsContainer"></div>
+
+    <button onclick="addItem()">+ Add Item</button><br><br>
+
+    <h3>Total: ₹ <span id="totalAmount">0</span></h3>
 
     <button onclick="saveBill()">Save Bill</button>
 
@@ -83,8 +71,7 @@ function showAccountantPage() {
     <h3>View Bills</h3>
 
     <div class="date-row">
-      <input type="date" id="selectedDate">
-      <button onclick="loadBillsForAccountant()">Load</button>
+      <input type="date" id="selectedDate" onchange="loadBillsForAccountant()">
     </div>
 
     <div id="billList"></div>
@@ -92,18 +79,50 @@ function showAccountantPage() {
     <button onclick="logout()">Logout</button>
   `;
 
-  // ✅ Auto load today's bills
   const today = new Date().toISOString().split("T")[0];
   document.getElementById("selectedDate").value = today;
+
   loadBillsForAccountant();
 }
 
+
+// ➕ ADD ITEM
+function addItem(name = "", price = "") {
+  const container = document.getElementById("itemsContainer");
+
+  const div = document.createElement("div");
+  div.className = "item-row";
+
+  div.innerHTML = `
+    <input type="text" placeholder="Item name" value="${name}" class="item-name">
+    <input type="number" placeholder="Price" value="${price}" class="item-price" oninput="calculateTotal()">
+    <button onclick="this.parentElement.remove(); calculateTotal()">X</button>
+  `;
+
+  container.appendChild(div);
+}
+
+
+// 💰 CALCULATE TOTAL
+function calculateTotal() {
+  const prices = document.querySelectorAll(".item-price");
+
+  let total = 0;
+
+  prices.forEach(input => {
+    total += Number(input.value) || 0;
+  });
+
+  document.getElementById("totalAmount").innerText = total;
+}
+
+
+// 🔄 REAL-TIME LISTENER
 let unsubscribe = null;
 
 function loadBillsForAccountant() {
   const date = document.getElementById("selectedDate").value;
 
-  // stop old listener
   if (unsubscribe) unsubscribe();
 
   unsubscribe = db.collection("bills")
@@ -117,55 +136,83 @@ function loadBillsForAccountant() {
         const data = doc.data();
         total += data.total;
 
+        let itemsHtml = "";
+        data.items.forEach(item => {
+          itemsHtml += `<p>${item.name} - ₹${item.price}</p>`;
+        });
+
         html += `
           <div class="bill-card">
             <img src="${data.imageUrl}">
-            <p><strong>Total:</strong> ${data.total}</p>
-            <p><strong>Items:</strong> ${data.items.join(", ")}</p>
+            ${itemsHtml}
+            <p><strong>Total:</strong> ₹${data.total}</p>
 
-            <button onclick="editBill('${doc.id}', '${data.imageUrl}', '${data.items.join(",")}', ${data.total})">Edit</button>
+            <button onclick="editBill('${doc.id}')">Edit</button>
             <button onclick="deleteBill('${doc.id}')">Delete</button>
           </div>
         `;
       });
 
-      html += `<div class="total-box">Daily Total: ${total}</div>`;
+      html += `<div class="total-box">Daily Total: ₹${total}</div>`;
 
       document.getElementById("billList").innerHTML = html;
     });
 }
 
 
+// 🗑️ DELETE
 function deleteBill(id) {
   if (confirm("Delete this bill?")) {
-    db.collection("bills").doc(id).delete().then(() => {
-      loadBillsForAccountant();
-    });
+    db.collection("bills").doc(id).delete();
   }
 }
 
+
+// ✏️ EDIT
 let editingId = null;
 
-function editBill(id, imageUrl, items, total) {
+function editBill(id) {
   editingId = id;
 
-  document.getElementById("imageUrl").value = imageUrl;
-  document.getElementById("items").value = items;
-  document.getElementById("total").value = total;
+  db.collection("bills").doc(id).get().then(doc => {
+    const data = doc.data();
 
-  window.scrollTo(0, 0);
+    document.getElementById("imageUrl").value = data.imageUrl;
+
+    const container = document.getElementById("itemsContainer");
+    container.innerHTML = "";
+
+    data.items.forEach(item => {
+      addItem(item.name, item.price);
+    });
+
+    calculateTotal();
+
+    window.scrollTo(0, 0);
+  });
 }
 
 
-
-// 💾 SAVE BILL
+// 💾 SAVE
 function saveBill() {
   const imageUrl = document.getElementById("imageUrl").value;
-  const items = document.getElementById("items").value.split(",");
-  const total = Number(document.getElementById("total").value);
-
-  // 👉 IMPORTANT: use selected date instead of always today
   const date = document.getElementById("selectedDate").value;
+
+  const names = document.querySelectorAll(".item-name");
+  const prices = document.querySelectorAll(".item-price");
+
+  let items = [];
+  let total = 0;
+
+  for (let i = 0; i < names.length; i++) {
+    const name = names[i].value;
+    const price = Number(prices[i].value);
+
+    if (name && price) {
+      items.push({ name, price });
+      total += price;
+    }
+  }
 
   if (editingId) {
     db.collection("bills").doc(editingId).update({
@@ -174,10 +221,7 @@ function saveBill() {
       total
     }).then(() => {
       editingId = null;
-      alert("Updated!");
-
-      clearForm();              // ✅ clear inputs
-      loadBillsForAccountant(); // ✅ AUTO refresh
+      clearForm();
     });
 
   } else {
@@ -187,20 +231,18 @@ function saveBill() {
       total,
       imageUrl
     }).then(() => {
-      alert("Saved!");
-
-      clearForm();              // ✅ clear inputs
-      loadBillsForAccountant(); // ✅ AUTO refresh
+      clearForm();
     });
   }
 }
+
+
+// 🧹 CLEAR FORM
 function clearForm() {
   document.getElementById("imageUrl").value = "";
-  document.getElementById("items").value = "";
-  document.getElementById("total").value = "";
+  document.getElementById("itemsContainer").innerHTML = "";
+  document.getElementById("totalAmount").innerText = "0";
 }
-
-
 
 
 // 👑 OWNER PAGE
@@ -209,8 +251,7 @@ function showOwnerPage() {
     <h2>Owner Dashboard</h2>
 
     <div class="date-row">
-      <input type="date" id="date">
-      <button onclick="loadBills()">Load</button>
+      <input type="date" id="date" onchange="loadBills()">
     </div>
 
     <div id="list"></div>
@@ -220,7 +261,7 @@ function showOwnerPage() {
 }
 
 
-// 📊 LOAD BILLS
+// 📊 OWNER LOAD
 function loadBills() {
   const date = document.getElementById("date").value;
 
@@ -236,16 +277,21 @@ function loadBills() {
         const data = doc.data();
         total += data.total;
 
+        let itemsHtml = "";
+        data.items.forEach(item => {
+          itemsHtml += `<p>${item.name} - ₹${item.price}</p>`;
+        });
+
         html += `
           <div class="bill-card">
             <img src="${data.imageUrl}">
-            <p><strong>Total:</strong> ${data.total}</p>
-            <p><strong>Items:</strong> ${data.items.join(", ")}</p>
+            ${itemsHtml}
+            <p><strong>Total:</strong> ₹${data.total}</p>
           </div>
         `;
       });
 
-      html += `<div class="total-box">Daily Total: ${total}</div>`;
+      html += `<div class="total-box">Daily Total: ₹${total}</div>`;
 
       document.getElementById("list").innerHTML = html;
     });
@@ -255,17 +301,14 @@ function loadBills() {
 // 🚪 LOGOUT
 function logout() {
   localStorage.removeItem("role");
-
-  document.getElementById("loginPage").style.display = "block"; // 👈 show login again
+  document.getElementById("loginPage").style.display = "block";
   document.getElementById("app").innerHTML = "";
 }
 
 
-
-// 🔄 AUTO LOGIN IF ALREADY LOGGED IN
+// 🔄 AUTO LOGIN
 window.onload = function () {
   if (localStorage.getItem("role")) {
     loadApp();
   }
 };
-
