@@ -278,9 +278,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <input type="date" id="acc-date" onchange="loadAccData()"/>
     </div>
     <div class="page-tabs">
-      <button class="page-tab active" onclick="switchAccTab('t-sales')">💰 Sales</button>
-      <button class="page-tab" onclick="switchAccTab('t-workers')">👷 Workers</button>
       <button class="page-tab" onclick="switchAccTab('t-expenses')">🧾 Expenses</button>
+      <button class="page-tab" onclick="switchAccTab('t-workers')">👷 Workers</button>
+      <button class="page-tab active" onclick="switchAccTab('t-sales')">💰 Sales</button>
       <button class="page-tab" onclick="switchAccTab('t-summary')">📊 Summary</button>
     </div>
 
@@ -421,8 +421,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <!-- Owner tabs -->
     <div class="page-tabs" id="owner-tabs" style="display:none">
       <button class="page-tab active" onclick="switchOwnerTab('ot-profit')">📊 Profit</button>
-      <button class="page-tab" onclick="switchOwnerTab('ot-workers')">👷 Workers</button>
       <button class="page-tab" onclick="switchOwnerTab('ot-expenses')">🧾 Expenses</button>
+      <button class="page-tab" onclick="switchOwnerTab('ot-workers')">👷 Workers</button>
     </div>
 
     <div id="owner-content">
