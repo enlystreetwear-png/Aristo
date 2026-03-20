@@ -11,6 +11,8 @@
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
 .screen{display:none;min-height:100vh;}
 .screen.active{display:flex;flex-direction:column;}
+
+/* LOGIN */
 #login-screen{align-items:center;justify-content:center;background:radial-gradient(ellipse at 30% 20%,#1e1500 0%,#0f0f0f 60%);}
 .login-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:48px 40px;width:100%;max-width:420px;box-shadow:0 30px 80px rgba(0,0,0,.6);}
 .brand{text-align:center;margin-bottom:36px;}
@@ -28,6 +30,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .btn-primary:hover{opacity:.85;}
 .error-msg{color:var(--danger);font-size:13px;text-align:center;margin-top:12px;display:none;}
 .config-warning{background:rgba(224,90,90,.1);border:1px solid rgba(224,90,90,.3);border-radius:10px;padding:16px;margin-top:16px;font-size:13px;color:#f0a0a0;line-height:1.7;display:none;}
+
+/* TOPBAR */
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;flex-wrap:wrap;gap:8px;}
 .topbar-brand{font-family:'Playfair Display',serif;color:var(--accent);font-size:20px;}
 .topbar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
@@ -36,23 +40,67 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .sync-indicator.syncing{color:#f0a030;}.sync-indicator.synced{color:var(--success);}.sync-indicator.error{color:var(--danger);}
 .btn-logout{padding:8px 18px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;cursor:pointer;font-size:13px;transition:all .2s;}
 .btn-logout:hover{border-color:var(--danger);color:var(--danger);}
+
+/* PAGE TABS */
 .page-tabs{display:flex;gap:5px;margin-bottom:22px;background:var(--card);border-radius:10px;padding:4px;overflow-x:auto;}
-.page-tab{flex:1;padding:9px 8px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;border-radius:7px;cursor:pointer;transition:all .2s;white-space:nowrap;min-width:75px;}
+.page-tab{flex:1;padding:9px 8px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;border-radius:7px;cursor:pointer;transition:all .2s;white-space:nowrap;min-width:70px;}
 .page-tab.active{background:var(--accent);color:#000;}
 .tab-panel{display:none;}.tab-panel.active{display:block;}
+
 .content{flex:1;padding:24px 28px;max-width:980px;width:100%;margin:0 auto;}
 .date-bar,.owner-date-bar{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
 .date-bar label,.owner-date-bar label{font-size:13px;color:var(--muted);}
 .date-bar input[type="date"],.owner-date-bar input[type="date"]{padding:9px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;cursor:pointer;}
 .date-bar input[type="date"]:focus,.owner-date-bar input[type="date"]:focus{border-color:var(--accent);}
+
 .section-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:18px;}
 .section-title{font-size:12px;color:var(--accent);letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
 .section-title::before{content:'';width:3px;height:13px;background:var(--accent);border-radius:2px;display:block;}
+
+/* SALES */
 .sales-wrap{display:flex;align-items:center;gap:10px;}
 .rupee-sym{font-size:28px;color:var(--muted);font-family:'Playfair Display',serif;}
 .sales-input{font-family:'Playfair Display',serif;font-size:36px;color:var(--accent);background:transparent;border:none;border-bottom:2px solid var(--border);outline:none;width:220px;padding:4px 6px;transition:border .2s;}
 .sales-input:focus{border-bottom-color:var(--accent);}
 .sales-hint{font-size:12px;color:var(--muted);margin-top:10px;}
+
+/* WORKERS TAB */
+/* Saved workers master list */
+.saved-workers-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+.saved-workers-bar h3{font-size:13px;font-weight:600;color:var(--text);}
+.btn-add-saved{padding:7px 16px;background:linear-gradient(135deg,var(--accent),#a07030);border:none;border-radius:8px;color:#000;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s;}
+.btn-add-saved:hover{opacity:.85;}
+
+.saved-worker-list{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.saved-worker-item{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:10px 14px;flex-wrap:wrap;}
+.swi-info{flex:1;min-width:120px;}
+.swi-name{font-size:14px;font-weight:600;}
+.swi-role{font-size:12px;color:var(--muted);margin-top:2px;}
+.swi-pay{font-size:13px;color:var(--accent);font-weight:600;white-space:nowrap;}
+.swi-actions{display:flex;gap:6px;}
+.btn-use-worker{padding:5px 12px;background:rgba(90,184,138,.15);border:1px solid rgba(90,184,138,.3);color:var(--success);border-radius:6px;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:600;transition:all .2s;white-space:nowrap;}
+.btn-use-worker:hover{background:var(--success);color:#000;}
+.btn-edit-saved{padding:5px 10px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:6px;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-edit-saved:hover{border-color:var(--accent);color:var(--accent);}
+.btn-del-saved{padding:5px 10px;background:transparent;border:1px solid var(--border);color:var(--danger);border-radius:6px;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-del-saved:hover{background:var(--danger);color:#fff;border-color:var(--danger);}
+
+.divider{border:none;border-top:1px solid var(--border);margin:18px 0;}
+
+/* Add/Edit saved worker form */
+.add-worker-form{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px;display:none;}
+.add-worker-form.open{display:block;}
+.awf-title{font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;}
+.awf-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
+.awf-field label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:5px;}
+.awf-field input,.awf-field select{width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border .2s;}
+.awf-field input:focus,.awf-field select:focus{border-color:var(--accent);}
+.awf-field select option{background:var(--card);}
+.awf-btns{display:flex;gap:8px;}
+.btn-save-worker{padding:8px 20px;background:linear-gradient(135deg,var(--accent),#a07030);border:none;border-radius:8px;color:#000;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-cancel-form{padding:8px 16px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;}
+
+/* Daily workers table */
 .workers-table{width:100%;border-collapse:collapse;margin-bottom:12px;}
 .workers-table th{text-align:left;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;padding:7px 9px;border-bottom:1px solid var(--border);}
 .workers-table td{padding:7px 9px;border-bottom:1px solid #1c1c1c;vertical-align:middle;}
@@ -68,6 +116,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .subtotal-row{display:flex;justify-content:flex-end;align-items:center;gap:10px;padding:10px 0 2px;border-top:1px solid var(--border);margin-top:8px;}
 .subtotal-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;}
 .subtotal-value{color:var(--accent);font-weight:600;font-size:15px;}
+
+/* SUPPLIERS */
 .supplier-block{border:1px solid var(--border);border-radius:10px;margin-bottom:16px;overflow:hidden;}
 .supplier-header{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--card);border-bottom:1px solid var(--border);flex-wrap:wrap;}
 .supplier-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
@@ -105,18 +155,23 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .supplier-sub-value{color:var(--accent);font-weight:600;font-size:15px;}
 .add-supplier-btn{width:100%;padding:12px;margin-bottom:16px;background:transparent;border:2px dashed var(--border);color:var(--muted);border-radius:10px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;transition:all .2s;}
 .add-supplier-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+/* SUMMARY */
 .acc-summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;}
 .acc-stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;}
 .acc-stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
 .acc-stat-value{font-family:'Playfair Display',serif;font-size:26px;}
 .c-green{color:var(--success);}.c-red{color:var(--danger);}.c-gold{color:var(--accent);}.c-blue{color:var(--info);}
+
 .save-bar{display:flex;justify-content:flex-end;margin-bottom:30px;}
 .btn-save{padding:12px 34px;background:linear-gradient(135deg,var(--accent),#a07030);border:none;border-radius:10px;color:#000;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s;}
 .btn-save:hover{opacity:.85;}.btn-save:disabled{opacity:.5;cursor:not-allowed;}
+
+/* OWNER PROFIT HERO */
 .profit-hero{background:var(--surface);border:1px solid rgba(212,168,83,.25);border-radius:var(--radius);padding:24px;margin-bottom:20px;}
 .profit-hero-title{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
 .profit-hero-title::before{content:'';width:3px;height:13px;background:var(--accent);border-radius:2px;display:block;}
-.hero-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;}
+.hero-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:12px;}
 .hero-card{padding:16px;border-radius:10px;border:1px solid var(--border);}
 .hero-card.green{background:rgba(90,184,138,.07);border-color:rgba(90,184,138,.2);}
 .hero-card.red{background:rgba(224,90,90,.07);border-color:rgba(224,90,90,.2);}
@@ -127,7 +182,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .hero-card.red .hero-card-label{color:rgba(224,90,90,.8);}
 .hero-card.gold .hero-card-label{color:rgba(212,168,83,.8);}
 .hero-card.blue .hero-card-label{color:rgba(90,155,224,.8);}
-.hero-card-value{font-family:'Playfair Display',serif;font-size:26px;}
+.hero-card-value{font-family:'Playfair Display',serif;font-size:24px;}
 .hero-card.green .hero-card-value{color:var(--success);}
 .hero-card.red .hero-card-value{color:var(--danger);}
 .hero-card.gold .hero-card-value{color:var(--accent);}
@@ -135,10 +190,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .profit-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;margin-top:8px;}
 .profit-badge.up{background:rgba(90,184,138,.15);color:var(--success);border:1px solid rgba(90,184,138,.3);}
 .profit-badge.down{background:rgba(224,90,90,.15);color:var(--danger);border:1px solid rgba(224,90,90,.3);}
-.owner-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;}
-.owner-sec-head{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--card);border-bottom:1px solid var(--border);}
-.owner-sec-title{font-size:13px;font-weight:600;}
-.owner-sec-amt{font-weight:600;font-size:14px;}
+
+/* OWNER detail sections */
 .view-table{width:100%;border-collapse:collapse;}
 .view-table th{text-align:left;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;padding:9px 18px;border-bottom:1px solid var(--border);}
 .view-table td{padding:9px 18px;border-bottom:1px solid #1c1c1c;font-size:13px;}
@@ -150,11 +203,14 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .owner-sup-total{color:var(--accent);font-weight:600;font-size:14px;}
 .bill-btn{padding:5px 13px;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:7px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all .2s;}
 .bill-btn:hover{background:var(--accent);color:#000;}
-.owner-grand{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(212,168,83,.07);border:1px solid rgba(212,168,83,.2);border-radius:var(--radius);margin-bottom:28px;}
-.owner-grand-label{color:var(--muted);text-transform:uppercase;font-size:12px;letter-spacing:.5px;}
-.owner-grand-value{font-family:'Playfair Display',serif;font-size:26px;color:var(--accent);}
+.section-total-bar{display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:12px 18px;border-top:1px solid var(--border);background:rgba(255,255,255,.02);}
+.section-total-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;}
+.section-total-value{color:var(--accent);font-weight:700;font-size:16px;}
+
 .no-data{text-align:center;padding:50px 20px;color:var(--muted);}
 .no-data-icon{font-size:44px;margin-bottom:12px;}
+
+/* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:200;align-items:center;justify-content:center;}
 .modal-overlay.open{display:flex;}
 .modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;max-width:540px;width:94%;position:relative;}
@@ -162,21 +218,38 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .modal-img{width:100%;border-radius:8px;max-height:440px;object-fit:contain;background:#111;}
 .modal-close{position:absolute;top:14px;right:14px;background:var(--card);border:none;color:var(--text);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;transition:background .2s;}
 .modal-close:hover{background:var(--danger);}
+
 .loading-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
 .spinner{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading-text{color:var(--muted);font-size:14px;}
 .toast{position:fixed;bottom:22px;right:22px;background:var(--success);color:#000;padding:11px 20px;border-radius:10px;font-size:14px;font-weight:500;transform:translateY(80px);opacity:0;transition:all .3s;z-index:1000;}
 .toast.show{transform:translateY(0);opacity:1;}
-@media(max-width:600px){.login-box{padding:28px 16px;margin:14px;}.content{padding:14px;}.topbar{padding:12px 16px;}.hero-grid{grid-template-columns:1fr 1fr;}}
+
+@media(max-width:600px){
+  .login-box{padding:28px 16px;margin:14px;}
+  .content{padding:14px;}
+  .topbar{padding:12px 16px;}
+  .hero-grid{grid-template-columns:1fr 1fr;}
+  .awf-grid{grid-template-columns:1fr 1fr;}
+}
 </style>
 </head>
 <body>
-<div class="loading-overlay" id="loading-overlay"><div class="spinner"></div><div class="loading-text" id="loading-text">Starting…</div></div>
 
+<div class="loading-overlay" id="loading-overlay">
+  <div class="spinner"></div>
+  <div class="loading-text" id="loading-text">Starting…</div>
+</div>
+
+<!-- ══ LOGIN ══ -->
 <div id="login-screen" class="screen">
   <div class="login-box">
-    <div class="brand"><div class="brand-icon">🏨</div><h1>Aristo Hotel</h1><p>Business Expense Manager</p></div>
+    <div class="brand">
+      <div class="brand-icon">🏨</div>
+      <h1>Aristo Hotel</h1>
+      <p>Business Expense Manager</p>
+    </div>
     <div class="role-tabs">
       <button class="role-tab active" onclick="setRole('accountant')">Accountant</button>
       <button class="role-tab" onclick="setRole('owner')">Owner</button>
@@ -184,89 +257,185 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="form-group"><label>Username</label><input type="text" id="username" placeholder="Enter username"/></div>
     <div class="form-group"><label>Password</label><input type="password" id="password" placeholder="Enter password"/></div>
     <button class="btn-primary" onclick="doLogin()">Sign In</button>
-    <div class="error-msg" id="login-error">Invalid username or password</div>
-    <div class="config-warning" id="config-warning"><strong>Firebase not configured.</strong><br>Open index.html, fill your Firebase keys, re-upload to GitHub.</div>
+    <div class="error-msg" id="login-error">❌ Invalid username or password</div>
+    <div class="config-warning" id="config-warning"><strong>⚠️ Firebase not configured.</strong><br>Open index.html, fill your Firebase keys, re-upload to GitHub.</div>
   </div>
 </div>
 
+<!-- ══ ACCOUNTANT ══ -->
 <div id="acc-screen" class="screen">
   <div class="topbar">
-    <span class="topbar-brand">Aristo Hotel</span>
+    <span class="topbar-brand">🏨 Aristo Hotel</span>
     <div class="topbar-right">
-      <span class="sync-indicator synced" id="sync-status">Synced</span>
+      <span class="sync-indicator synced" id="sync-status">✓ Synced</span>
       <span class="topbar-role">Accountant</span>
       <button class="btn-logout" onclick="logout()">Logout</button>
     </div>
   </div>
   <div class="content">
-    <div class="date-bar"><label>Date:</label><input type="date" id="acc-date" onchange="loadAccData()"/></div>
-    <div class="page-tabs">
-      <button class="page-tab active" onclick="switchTab('t-sales')">Sales</button>
-      <button class="page-tab" onclick="switchTab('t-workers')">Workers</button>
-      <button class="page-tab" onclick="switchTab('t-expenses')">Expenses</button>
-      <button class="page-tab" onclick="switchTab('t-summary')">Summary</button>
+    <div class="date-bar">
+      <label>📅 Date:</label>
+      <input type="date" id="acc-date" onchange="loadAccData()"/>
     </div>
+    <div class="page-tabs">
+      <button class="page-tab active" onclick="switchAccTab('t-sales')">💰 Sales</button>
+      <button class="page-tab" onclick="switchAccTab('t-workers')">👷 Workers</button>
+      <button class="page-tab" onclick="switchAccTab('t-expenses')">🧾 Expenses</button>
+      <button class="page-tab" onclick="switchAccTab('t-summary')">📊 Summary</button>
+    </div>
+
+    <!-- SALES -->
     <div id="t-sales" class="tab-panel active">
       <div class="section-card">
         <div class="section-title">Total Sales for the Day</div>
-        <div class="sales-wrap"><span class="rupee-sym">Rs</span><input class="sales-input" type="number" id="sales-amount" min="0" step="0.01" placeholder="0.00" oninput="onSalesChange()"/></div>
+        <div class="sales-wrap">
+          <span class="rupee-sym">₹</span>
+          <input class="sales-input" type="number" id="sales-amount" min="0" step="0.01" placeholder="0.00" oninput="onSalesChange()"/>
+        </div>
         <p class="sales-hint">Enter total revenue collected today (cash + online).</p>
       </div>
     </div>
+
+    <!-- WORKERS -->
     <div id="t-workers" class="tab-panel">
+
+      <!-- SAVED WORKERS (master list) -->
       <div class="section-card">
-        <div class="section-title">Workers and Daily Wages</div>
+        <div class="saved-workers-bar">
+          <div>
+            <div class="section-title" style="margin-bottom:4px">Saved Workers</div>
+            <p style="font-size:12px;color:var(--muted);">Add workers here once — reuse every day by clicking "Use Today".</p>
+          </div>
+          <button class="btn-add-saved" onclick="openWorkerForm()">＋ Add Worker</button>
+        </div>
+
+        <!-- Add / Edit form -->
+        <div class="add-worker-form" id="worker-form">
+          <div class="awf-title" id="awf-title">Add New Worker</div>
+          <div class="awf-grid">
+            <div class="awf-field">
+              <label>Worker Name</label>
+              <input type="text" id="awf-name" placeholder="e.g. Ravi Kumar"/>
+            </div>
+            <div class="awf-field">
+              <label>Role / Designation</label>
+              <select id="awf-role">
+                <option>Chef</option><option>Cook</option><option>Waiter</option>
+                <option>Cleaner</option><option>Cashier</option><option>Manager</option>
+                <option>Helper</option><option>Security</option><option>Driver</option><option>Other</option>
+              </select>
+            </div>
+            <div class="awf-field">
+              <label>Default Pay / Day (₹)</label>
+              <input type="number" id="awf-pay" min="0" step="0.01" placeholder="0.00"/>
+            </div>
+          </div>
+          <div class="awf-btns">
+            <button class="btn-save-worker" onclick="saveWorkerToList()">💾 Save Worker</button>
+            <button class="btn-cancel-form" onclick="closeWorkerForm()">Cancel</button>
+          </div>
+        </div>
+
+        <div id="saved-workers-list">
+          <p style="color:var(--muted);font-size:13px;text-align:center;padding:16px 0;">No saved workers yet. Click "+ Add Worker" above.</p>
+        </div>
+      </div>
+
+      <hr class="divider"/>
+
+      <!-- TODAY'S WORKERS (daily entry) -->
+      <div class="section-card">
+        <div class="section-title">Today's Working Staff</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">Workers added here will be included in today's wage calculation. You can also add manually.</p>
         <table class="workers-table">
-          <thead><tr><th style="width:24px">#</th><th>Worker Name</th><th style="width:130px">Role</th><th style="width:60px;text-align:center">Days</th><th style="width:110px;text-align:right">Pay/Day</th><th style="width:110px;text-align:right">Total</th><th style="width:28px"></th></tr></thead>
+          <thead>
+            <tr>
+              <th style="width:24px">#</th>
+              <th>Name</th>
+              <th style="width:130px">Role</th>
+              <th style="width:60px;text-align:center">Days</th>
+              <th style="width:110px;text-align:right">Pay/Day (₹)</th>
+              <th style="width:110px;text-align:right">Total (₹)</th>
+              <th style="width:28px"></th>
+            </tr>
+          </thead>
           <tbody id="workers-tbody"></tbody>
         </table>
-        <button class="add-row-btn" onclick="addWorker()">+ Add Worker</button>
-        <div class="subtotal-row"><span class="subtotal-label">Total Wages</span><span class="subtotal-value" id="workers-total">Rs 0.00</span></div>
-      </div>
-    </div>
-    <div id="t-expenses" class="tab-panel">
-      <div class="section-card">
-        <div class="section-title">Suppliers, Bills and Items</div>
-        <div id="suppliers-wrap"></div>
-        <button class="add-supplier-btn" onclick="addSupplier()">+ Add Supplier</button>
-        <div class="subtotal-row"><span class="subtotal-label">Total Purchases</span><span class="subtotal-value" id="grand-total">Rs 0.00</span></div>
-      </div>
-    </div>
-    <div id="t-summary" class="tab-panel">
-      <div class="section-card">
-        <div class="section-title">Today Financial Summary</div>
-        <div class="acc-summary-grid">
-          <div class="acc-stat"><div class="acc-stat-label">Total Sales</div><div class="acc-stat-value c-green" id="sum-sales">Rs 0.00</div></div>
-          <div class="acc-stat"><div class="acc-stat-label">Purchases</div><div class="acc-stat-value c-red" id="sum-purchases">Rs 0.00</div></div>
-          <div class="acc-stat"><div class="acc-stat-label">Worker Wages</div><div class="acc-stat-value c-red" id="sum-wages">Rs 0.00</div></div>
-          <div class="acc-stat"><div class="acc-stat-label">Total Costs</div><div class="acc-stat-value c-blue" id="sum-costs">Rs 0.00</div></div>
-          <div class="acc-stat"><div class="acc-stat-label">Net Profit / Loss</div><div class="acc-stat-value c-gold" id="sum-profit">Rs 0.00</div></div>
+        <button class="add-row-btn" onclick="addBlankWorkerRow()">＋ Add Manually</button>
+        <div class="subtotal-row">
+          <span class="subtotal-label">Total Wages</span>
+          <span class="subtotal-value" id="workers-total">₹0.00</span>
         </div>
       </div>
     </div>
-    <div class="save-bar"><button class="btn-save" id="btn-save" onclick="saveData()">Save Entry</button></div>
+
+    <!-- EXPENSES -->
+    <div id="t-expenses" class="tab-panel">
+      <div class="section-card">
+        <div class="section-title">Suppliers, Bills &amp; Items</div>
+        <div id="suppliers-wrap"></div>
+        <button class="add-supplier-btn" onclick="addSupplier()">＋ Add Supplier</button>
+        <div class="subtotal-row">
+          <span class="subtotal-label">Total Purchases</span>
+          <span class="subtotal-value" id="grand-total">₹0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div id="t-summary" class="tab-panel">
+      <div class="section-card">
+        <div class="section-title">Today's Financial Summary</div>
+        <div class="acc-summary-grid">
+          <div class="acc-stat"><div class="acc-stat-label">💰 Total Sales</div><div class="acc-stat-value c-green" id="sum-sales">₹0.00</div></div>
+          <div class="acc-stat"><div class="acc-stat-label">🛒 Purchases</div><div class="acc-stat-value c-red" id="sum-purchases">₹0.00</div></div>
+          <div class="acc-stat"><div class="acc-stat-label">👷 Worker Wages</div><div class="acc-stat-value c-red" id="sum-wages">₹0.00</div></div>
+          <div class="acc-stat"><div class="acc-stat-label">📦 Total Costs</div><div class="acc-stat-value c-blue" id="sum-costs">₹0.00</div></div>
+          <div class="acc-stat"><div class="acc-stat-label">📈 Net Profit / Loss</div><div class="acc-stat-value c-gold" id="sum-profit">₹0.00</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="save-bar">
+      <button class="btn-save" id="btn-save" onclick="saveData()">💾 Save Entry</button>
+    </div>
   </div>
 </div>
 
+<!-- ══ OWNER ══ -->
 <div id="owner-screen" class="screen">
   <div class="topbar">
-    <span class="topbar-brand">Aristo Hotel</span>
+    <span class="topbar-brand">🏨 Aristo Hotel</span>
     <div class="topbar-right">
-      <span class="sync-indicator synced" id="owner-sync-status">Live</span>
+      <span class="sync-indicator synced" id="owner-sync-status">✓ Live</span>
       <span class="topbar-role">Owner</span>
       <button class="btn-logout" onclick="logout()">Logout</button>
     </div>
   </div>
   <div class="content">
-    <div class="owner-date-bar"><label>Report for:</label><input type="date" id="owner-date" onchange="loadOwnerData()"/></div>
-    <div id="owner-content"><div class="no-data"><div class="no-data-icon">📭</div><p>Select a date to view report.</p></div></div>
+    <div class="owner-date-bar">
+      <label>📅 Report for:</label>
+      <input type="date" id="owner-date" onchange="loadOwnerData()"/>
+    </div>
+
+    <!-- Owner tabs -->
+    <div class="page-tabs" id="owner-tabs" style="display:none">
+      <button class="page-tab active" onclick="switchOwnerTab('ot-profit')">📊 Profit</button>
+      <button class="page-tab" onclick="switchOwnerTab('ot-workers')">👷 Workers</button>
+      <button class="page-tab" onclick="switchOwnerTab('ot-expenses')">🧾 Expenses</button>
+    </div>
+
+    <div id="owner-content">
+      <div class="no-data"><div class="no-data-icon">📭</div><p>Select a date to view report.</p></div>
+    </div>
   </div>
 </div>
 
+<!-- Bill Modal -->
 <div class="modal-overlay" id="bill-modal" onclick="closeBillModal(event)">
   <div class="modal">
-    <button class="modal-close" onclick="document.getElementById('bill-modal').classList.remove('open')">X</button>
-    <h3 id="modal-title">Bill Image</h3>
+    <button class="modal-close" onclick="document.getElementById('bill-modal').classList.remove('open')">✕</button>
+    <h3 id="modal-title">🧾 Bill Image</h3>
     <img class="modal-img" id="modal-img" src="" alt="Bill" style="display:none"/>
     <p id="modal-no-bill" style="color:var(--muted);font-size:14px;display:none;">No bill image for this supplier.</p>
   </div>
@@ -274,165 +443,295 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 <div class="toast" id="toast"></div>
 
 <script type="module">
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { initializeApp }     from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 const FIREBASE_CONFIG = {
-  apiKey:"AIzaSyAMqZpc0u8WqE8mby9tLGn9HpkiOhwjz8I",
-  authDomain:"aristo-46e2f.firebaseapp.com",
-  projectId:"aristo-46e2f",
-  storageBucket:"aristo-46e2f.firebasestorage.app",
-  messagingSenderId:"976927618183",
-  appId:"1:976927618183:web:4d3c3cf76b2707699bb422"
+  apiKey:            "AIzaSyAMqZpc0u8WqE8mby9tLGn9HpkiOhwjz8I",
+  authDomain:        "aristo-46e2f.firebaseapp.com",
+  projectId:         "aristo-46e2f",
+  storageBucket:     "aristo-46e2f.firebasestorage.app",
+  messagingSenderId: "976927618183",
+  appId:             "1:976927618183:web:4d3c3cf76b2707699bb422"
 };
 
 const IS_CONFIGURED = !FIREBASE_CONFIG.apiKey.includes('YOUR_');
 let db = null;
 
-async function startApp(){
-  if(!IS_CONFIGURED){hideLoading();showScreen('login-screen');document.getElementById('config-warning').style.display='block';return;}
-  try{
-    setLoadingText('Connecting to database...');
-    const app=initializeApp(FIREBASE_CONFIG);
-    db=getFirestore(app);
+async function startApp() {
+  if (!IS_CONFIGURED) { hideLoading(); showScreen('login-screen'); document.getElementById('config-warning').style.display='block'; return; }
+  try {
+    setLoadingText('Connecting to database…');
+    const app = initializeApp(FIREBASE_CONFIG);
+    db = getFirestore(app);
     await getDoc(doc(db,'entries','_ping'));
-    hideLoading();showScreen('login-screen');
-  }catch(e){hideLoading();showScreen('login-screen');showToast('Could not reach database. Check internet.',true);}
+    hideLoading(); showScreen('login-screen');
+  } catch(e) { hideLoading(); showScreen('login-screen'); showToast('⚠️ Could not reach database.',true); }
 }
 startApp();
 
-const USERS={accountant:{pass:'acc123',role:'accountant'},owner:{pass:'own123',role:'owner'}};
-let currentRole='accountant';
+/* ─ AUTH ─ */
+const USERS = { accountant:{pass:'acc123',role:'accountant'}, owner:{pass:'own123',role:'owner'} };
+let currentRole = 'accountant';
 
-window.setRole=r=>{
-  currentRole=r;
-  document.querySelectorAll('.role-tab').forEach((t,i)=>t.classList.toggle('active',(i===0&&r==='accountant')||(i===1&&r==='owner')));
+window.setRole = r => {
+  currentRole = r;
+  document.querySelectorAll('.role-tab').forEach((t,i) => t.classList.toggle('active',(i===0&&r==='accountant')||(i===1&&r==='owner')));
 };
-window.doLogin=()=>{
-  const u=document.getElementById('username').value.trim();
-  const p=document.getElementById('password').value;
-  const user=USERS[u];
-  const err=document.getElementById('login-error');
-  if(user&&user.pass===p&&user.role===currentRole){err.style.display='none';showScreen(currentRole==='accountant'?'acc-screen':'owner-screen');currentRole==='accountant'?initAccountant():initOwner();}
-  else{err.style.display='block';}
+window.doLogin = () => {
+  const u=document.getElementById('username').value.trim(), p=document.getElementById('password').value;
+  const user=USERS[u], err=document.getElementById('login-error');
+  if(user&&user.pass===p&&user.role===currentRole){ err.style.display='none'; showScreen(currentRole==='accountant'?'acc-screen':'owner-screen'); currentRole==='accountant'?initAccountant():initOwner(); }
+  else err.style.display='block';
 };
-window.logout=()=>{showScreen('login-screen');document.getElementById('username').value='';document.getElementById('password').value='';};
+window.logout = () => { showScreen('login-screen'); document.getElementById('username').value=''; document.getElementById('password').value=''; };
 
-async function fbSave(date,data){if(!db)throw new Error('No DB');await setDoc(doc(db,'entries',date),data);}
-async function fbLoad(date){if(!db)throw new Error('No DB');const snap=await getDoc(doc(db,'entries',date));return snap.exists()?snap.data():null;}
+/* ─ FIRESTORE ─ */
+async function fbSave(key, data) { if(!db) throw new Error('No DB'); await setDoc(doc(db,'data',key), data); }
+async function fbLoad(key) { if(!db) throw new Error('No DB'); const snap=await getDoc(doc(db,'data',key)); return snap.exists()?snap.data():null; }
 
-let sales=0;
-let workers=[];
-let suppliers=[];
+/* ─ STATE ─ */
+let sales = 0;
+// savedWorkers: [{id, name, role, payPerDay}]  — stored in Firebase under 'workers_master'
+let savedWorkers = [];
+// dailyWorkers: [{name, role, days, payPerDay}]
+let dailyWorkers = [];
+let suppliers = [];
 
-const TAB_IDS=['t-sales','t-workers','t-expenses','t-summary'];
-window.switchTab=id=>{
-  TAB_IDS.forEach(t=>document.getElementById(t).classList.remove('active'));
-  document.querySelectorAll('.page-tab').forEach(t=>t.classList.remove('active'));
+/* ─ TABS ─ */
+const ACC_TABS = ['t-sales','t-workers','t-expenses','t-summary'];
+window.switchAccTab = id => {
+  ACC_TABS.forEach(t => document.getElementById(t).classList.remove('active'));
+  document.querySelectorAll('#acc-screen .page-tab').forEach(t => t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.page-tab')[TAB_IDS.indexOf(id)].classList.add('active');
-  if(id==='t-summary')updateSummary();
+  document.querySelectorAll('#acc-screen .page-tab')[ACC_TABS.indexOf(id)].classList.add('active');
+  if(id==='t-summary') updateSummary();
 };
 
-function initAccountant(){document.getElementById('acc-date').value=todayStr();loadAccData();}
+const OWNER_TABS = ['ot-profit','ot-workers','ot-expenses'];
+window.switchOwnerTab = id => {
+  OWNER_TABS.forEach(t => { const el=document.getElementById(t); if(el) el.classList.remove('active'); });
+  document.querySelectorAll('#owner-tabs .page-tab').forEach(t => t.classList.remove('active'));
+  const el = document.getElementById(id); if(el) el.classList.add('active');
+  document.querySelectorAll('#owner-tabs .page-tab')[OWNER_TABS.indexOf(id)].classList.add('active');
+};
 
-async function loadAccData(){
-  const date=document.getElementById('acc-date').value;if(!date)return;
-  setSyncStatus('syncing','Loading...');
-  try{
-    const entry=await fbLoad(date);
-    if(entry){sales=entry.sales||0;workers=entry.workers||[];suppliers=entry.suppliers||[];}
-    else{sales=0;workers=[];suppliers=[];}
-    setSyncStatus('synced','Synced');
-  }catch(e){setSyncStatus('error','Offline');sales=0;workers=[];suppliers=[];}
-  document.getElementById('sales-amount').value=sales||'';
-  renderWorkers();renderSuppliers();updateSummary();
+/* ─ INIT ─ */
+function initAccountant() {
+  document.getElementById('acc-date').value = todayStr();
+  loadSavedWorkers();
+  loadAccData();
 }
-window.loadAccData=loadAccData;
 
-window.onSalesChange=()=>{sales=parseFloat(document.getElementById('sales-amount').value)||0;updateSummary();};
+async function loadSavedWorkers() {
+  try {
+    const data = await fbLoad('workers_master');
+    savedWorkers = (data && data.list) ? data.list : [];
+  } catch(e) { savedWorkers = []; }
+  renderSavedWorkersList();
+}
 
-const ROLES=['Chef','Cook','Waiter','Cleaner','Cashier','Manager','Helper','Security','Driver','Other'];
+async function loadAccData() {
+  const date = document.getElementById('acc-date').value;
+  if(!date) return;
+  setSyncStatus('syncing','↻ Loading…');
+  try {
+    const entry = await fbLoad('entry_'+date);
+    if(entry) { sales=entry.sales||0; dailyWorkers=entry.workers||[]; suppliers=entry.suppliers||[]; }
+    else { sales=0; dailyWorkers=[]; suppliers=[]; }
+    setSyncStatus('synced','✓ Synced');
+  } catch(e) { setSyncStatus('error','✗ Offline'); sales=0; dailyWorkers=[]; suppliers=[]; }
+  document.getElementById('sales-amount').value = sales||'';
+  renderDailyWorkers();
+  renderSuppliers();
+  updateSummary();
+}
+window.loadAccData = loadAccData;
 
-window.addWorker=()=>{
-  workers.push({name:'',role:'Waiter',days:1,payPerDay:0});
-  renderWorkers();
-  setTimeout(()=>{const rows=document.querySelectorAll('#workers-tbody tr');if(rows.length){const inp=rows[rows.length-1].querySelector('input');if(inp)inp.focus();}},40);
+/* ─ SALES ─ */
+window.onSalesChange = () => { sales = parseFloat(document.getElementById('sales-amount').value)||0; updateSummary(); };
+
+/* ─ SAVED WORKERS FORM ─ */
+let editingWorkerId = null;
+const ROLES = ['Chef','Cook','Waiter','Cleaner','Cashier','Manager','Helper','Security','Driver','Other'];
+
+window.openWorkerForm = (id=null) => {
+  editingWorkerId = id;
+  const form = document.getElementById('worker-form');
+  const title = document.getElementById('awf-title');
+  if(id !== null) {
+    const w = savedWorkers.find(x=>x.id===id);
+    if(w) {
+      document.getElementById('awf-name').value = w.name;
+      document.getElementById('awf-role').value = w.role;
+      document.getElementById('awf-pay').value  = w.payPerDay;
+      title.textContent = 'Edit Worker';
+    }
+  } else {
+    document.getElementById('awf-name').value = '';
+    document.getElementById('awf-role').value = 'Waiter';
+    document.getElementById('awf-pay').value  = '';
+    title.textContent = 'Add New Worker';
+  }
+  form.classList.add('open');
+  setTimeout(()=>document.getElementById('awf-name').focus(), 60);
 };
-window.removeWorker=i=>{workers.splice(i,1);renderWorkers();updateSummary();};
-window.updateWorker=(i,field,val)=>{
-  workers[i][field]=(field==='days'||field==='payPerDay')?(parseFloat(val)||0):val;
-  refreshWorkerRow(i);
-};
-function workerPay(w){return(w.payPerDay||0)*(w.days||1);}
-function totalWages(){return workers.reduce((s,w)=>s+workerPay(w),0);}
 
-function renderWorkers(){
-  const tbody=document.getElementById('workers-tbody');if(!tbody)return;
-  tbody.innerHTML=workers.map((w,i)=>`
+window.closeWorkerForm = () => {
+  document.getElementById('worker-form').classList.remove('open');
+  editingWorkerId = null;
+};
+
+window.saveWorkerToList = async () => {
+  const name = document.getElementById('awf-name').value.trim();
+  const role = document.getElementById('awf-role').value;
+  const pay  = parseFloat(document.getElementById('awf-pay').value)||0;
+  if(!name) { showToast('Please enter worker name', true); return; }
+
+  if(editingWorkerId !== null) {
+    const idx = savedWorkers.findIndex(x=>x.id===editingWorkerId);
+    if(idx>=0) savedWorkers[idx] = { id:editingWorkerId, name, role, payPerDay:pay };
+  } else {
+    savedWorkers.push({ id: Date.now(), name, role, payPerDay:pay });
+  }
+  try { await fbSave('workers_master', { list: savedWorkers }); showToast('✅ Worker saved!'); }
+  catch(e) { showToast('⚠️ Saved locally, sync failed', true); }
+  closeWorkerForm();
+  renderSavedWorkersList();
+};
+
+window.deleteSavedWorker = async id => {
+  savedWorkers = savedWorkers.filter(x=>x.id!==id);
+  try { await fbSave('workers_master', { list: savedWorkers }); }
+  catch(e) {}
+  renderSavedWorkersList();
+};
+
+window.useWorkerToday = id => {
+  const w = savedWorkers.find(x=>x.id===id);
+  if(!w) return;
+  // check if already added today
+  if(dailyWorkers.find(d=>d.name===w.name && d.role===w.role)) { showToast(w.name+' already added today', true); return; }
+  dailyWorkers.push({ name:w.name, role:w.role, days:1, payPerDay:w.payPerDay });
+  renderDailyWorkers();
+  showToast(w.name+' added to today!');
+  // switch to daily section focus
+};
+
+function renderSavedWorkersList() {
+  const wrap = document.getElementById('saved-workers-list');
+  if(!wrap) return;
+  if(!savedWorkers.length) {
+    wrap.innerHTML = '<p style="color:var(--muted);font-size:13px;text-align:center;padding:16px 0;">No saved workers yet. Click "+ Add Worker" above.</p>';
+    return;
+  }
+  wrap.innerHTML = '<div class="saved-worker-list">'+savedWorkers.map(w=>`
+    <div class="saved-worker-item">
+      <div class="swi-info">
+        <div class="swi-name">${esc(w.name)}</div>
+        <div class="swi-role">${esc(w.role)}</div>
+      </div>
+      <div class="swi-pay">₹${(w.payPerDay||0).toFixed(2)}/day</div>
+      <div class="swi-actions">
+        <button class="btn-use-worker" onclick="useWorkerToday(${w.id})">✓ Use Today</button>
+        <button class="btn-edit-saved" onclick="openWorkerForm(${w.id})">✏️ Edit</button>
+        <button class="btn-del-saved" onclick="deleteSavedWorker(${w.id})">🗑</button>
+      </div>
+    </div>`).join('')+'</div>';
+}
+
+/* ─ DAILY WORKERS ─ */
+window.addBlankWorkerRow = () => {
+  dailyWorkers.push({ name:'', role:'Waiter', days:1, payPerDay:0 });
+  renderDailyWorkers();
+  setTimeout(()=>{ const rows=document.querySelectorAll('#workers-tbody tr'); if(rows.length){ const inp=rows[rows.length-1].querySelector('input'); if(inp) inp.focus(); } },40);
+};
+window.removeDailyWorker = i => { dailyWorkers.splice(i,1); renderDailyWorkers(); updateSummary(); };
+window.updateDailyWorker = (i,field,val) => {
+  dailyWorkers[i][field] = (field==='days'||field==='payPerDay')?(parseFloat(val)||0):val;
+  refreshDailyWorkerRow(i);
+};
+
+function workerPay(w){ return (w.payPerDay||0)*(w.days||1); }
+function totalWages(){ return dailyWorkers.reduce((s,w)=>s+workerPay(w),0); }
+
+function renderDailyWorkers() {
+  const tbody = document.getElementById('workers-tbody'); if(!tbody) return;
+  tbody.innerHTML = dailyWorkers.map((w,i)=>`
     <tr>
       <td style="color:var(--muted);font-size:12px">${i+1}</td>
-      <td><input value="${esc(w.name)}" placeholder="Worker name" oninput="updateWorker(${i},'name',this.value)"/></td>
-      <td><select onchange="updateWorker(${i},'role',this.value)">${ROLES.map(r=>`<option value="${r}"${w.role===r?' selected':''}>${r}</option>`).join('')}</select></td>
-      <td><input value="${w.days||1}" type="number" min="1" style="text-align:center;max-width:54px" oninput="updateWorker(${i},'days',this.value)"/></td>
-      <td><input value="${w.payPerDay||''}" type="number" min="0" step="0.01" placeholder="0.00" style="max-width:100px" oninput="updateWorker(${i},'payPerDay',this.value)"/></td>
-      <td class="w-pay" id="wpay-${i}">Rs ${workerPay(w).toFixed(2)}</td>
-      <td><button class="del-btn" onclick="removeWorker(${i})">x</button></td>
+      <td><input value="${esc(w.name)}" placeholder="Name" oninput="updateDailyWorker(${i},'name',this.value)"/></td>
+      <td><select onchange="updateDailyWorker(${i},'role',this.value)">${ROLES.map(r=>`<option value="${r}"${w.role===r?' selected':''}>${r}</option>`).join('')}</select></td>
+      <td><input value="${w.days||1}" type="number" min="1" style="text-align:center;max-width:54px" oninput="updateDailyWorker(${i},'days',this.value)"/></td>
+      <td><input value="${w.payPerDay||''}" type="number" min="0" step="0.01" placeholder="0.00" style="max-width:100px" oninput="updateDailyWorker(${i},'payPerDay',this.value)"/></td>
+      <td class="w-pay" id="wpay-${i}">₹${workerPay(w).toFixed(2)}</td>
+      <td><button class="del-btn" onclick="removeDailyWorker(${i})">×</button></td>
     </tr>`).join('');
-  const tw=document.getElementById('workers-total');if(tw)tw.textContent='Rs '+totalWages().toFixed(2);
+  const tw=document.getElementById('workers-total'); if(tw) tw.textContent='₹'+totalWages().toFixed(2);
   updateSummary();
 }
-function refreshWorkerRow(i){
-  const el=document.getElementById('wpay-'+i);if(el)el.textContent='Rs '+workerPay(workers[i]).toFixed(2);
-  const tw=document.getElementById('workers-total');if(tw)tw.textContent='Rs '+totalWages().toFixed(2);
+function refreshDailyWorkerRow(i) {
+  const el=document.getElementById('wpay-'+i); if(el) el.textContent='₹'+workerPay(dailyWorkers[i]).toFixed(2);
+  const tw=document.getElementById('workers-total'); if(tw) tw.textContent='₹'+totalWages().toFixed(2);
   updateSummary();
 }
 
-window.addSupplier=()=>{
+/* ─ SUPPLIERS ─ */
+window.addSupplier = () => {
   suppliers.push({name:'',billDataUrl:null,billName:'',items:[{name:'',qty:1,price:0}]});
   renderSuppliers();
-  setTimeout(()=>{const ins=document.querySelectorAll('.supplier-name-input');if(ins.length)ins[ins.length-1].focus();},50);
+  setTimeout(()=>{ const ins=document.querySelectorAll('.supplier-name-input'); if(ins.length) ins[ins.length-1].focus(); },50);
 };
-window.removeSupplier=si=>{suppliers.splice(si,1);renderSuppliers();};
-window.updateSupplierName=(si,val)=>{suppliers[si].name=val;};
-window.handleBillUpload=(si,input)=>{
-  const file=input.files[0];if(!file)return;
+window.removeSupplier = si => { suppliers.splice(si,1); renderSuppliers(); };
+window.updateSupplierName = (si,val) => { suppliers[si].name=val; };
+window.handleBillUpload = (si,input) => {
+  const file=input.files[0]; if(!file) return;
   const reader=new FileReader();
-  reader.onload=ev=>{suppliers[si].billDataUrl=ev.target.result;suppliers[si].billName=file.name;renderBillSection(si);};
+  reader.onload=ev=>{ suppliers[si].billDataUrl=ev.target.result; suppliers[si].billName=file.name; renderBillSection(si); };
   reader.readAsDataURL(file);
 };
-window.removeBill=si=>{suppliers[si].billDataUrl=null;suppliers[si].billName='';renderBillSection(si);};
+window.removeBill = si => { suppliers[si].billDataUrl=null; suppliers[si].billName=''; renderBillSection(si); };
 function renderBillSection(si){
-  const up=document.getElementById('bill-upload-'+si),pr=document.getElementById('bill-preview-'+si);
-  const th=document.getElementById('bill-thumb-'+si),nm=document.getElementById('bill-name-'+si);
-  if(!up)return;
+  const up=document.getElementById('bill-upload-'+si), pr=document.getElementById('bill-preview-'+si);
+  const th=document.getElementById('bill-thumb-'+si), nm=document.getElementById('bill-name-'+si);
+  if(!up) return;
   const sup=suppliers[si];
-  if(sup.billDataUrl){up.style.display='none';pr.style.display='flex';if(th)th.src=sup.billDataUrl;if(nm)nm.textContent=sup.billName;}
-  else{up.style.display='flex';pr.style.display='none';}
+  if(sup.billDataUrl){ up.style.display='none'; pr.style.display='flex'; if(th) th.src=sup.billDataUrl; if(nm) nm.textContent=sup.billName; }
+  else { up.style.display='flex'; pr.style.display='none'; }
 }
-window.previewBill=si=>{const s=suppliers[si];openModal(s?s.billDataUrl:null,s?s.name:'');};
-window.addItem=si=>{
-  suppliers[si].items.push({name:'',qty:1,price:0});renderSuppliers();
-  setTimeout(()=>{const tb=document.getElementById('items-body-'+si);if(tb){const rows=tb.querySelectorAll('tr');const last=rows[rows.length-1];if(last){const inp=last.querySelector('input');if(inp)inp.focus();}}},50);
+window.previewBill = si => { const s=suppliers[si]; openModal(s?s.billDataUrl:null,s?s.name:''); };
+window.addItem = si => {
+  suppliers[si].items.push({name:'',qty:1,price:0}); renderSuppliers();
+  setTimeout(()=>{ const tb=document.getElementById('items-body-'+si); if(tb){ const rows=tb.querySelectorAll('tr'); const last=rows[rows.length-1]; if(last){ const inp=last.querySelector('input'); if(inp) inp.focus(); } } },50);
 };
-window.removeItem=(si,ii)=>{if(suppliers[si].items.length===1){showToast('At least 1 item needed',true);return;}suppliers[si].items.splice(ii,1);renderSuppliers();};
-window.updateItemField=(si,ii,field,val)=>{
+window.removeItem = (si,ii) => {
+  if(suppliers[si].items.length===1){ showToast('At least 1 item needed',true); return; }
+  suppliers[si].items.splice(ii,1); renderSuppliers();
+};
+window.updateItemField = (si,ii,field,val) => {
   suppliers[si].items[ii][field]=(field==='qty'||field==='price')?(parseFloat(val)||0):val;
   refreshItemTotals();
 };
-const supTotal=si=>suppliers[si].items.reduce((s,it)=>s+((it.price||0)*(it.qty||1)),0);
-const purchasesTotal=()=>suppliers.reduce((s,_,si)=>s+supTotal(si),0);
+
+const supTotal = si => suppliers[si].items.reduce((s,it)=>s+((it.price||0)*(it.qty||1)),0);
+const purchasesTotal = () => suppliers.reduce((s,_,si)=>s+supTotal(si),0);
+
 function refreshItemTotals(){
   suppliers.forEach((_,si)=>{
-    const el=document.getElementById('sup-total-'+si);if(el)el.textContent='Rs '+supTotal(si).toFixed(2);
-    suppliers[si].items.forEach((it,ii)=>{const cel=document.getElementById('isub-'+si+'-'+ii);if(cel)cel.textContent='Rs '+((it.price||0)*(it.qty||1)).toFixed(2);});
+    const el=document.getElementById('sup-total-'+si); if(el) el.textContent='₹'+supTotal(si).toFixed(2);
+    suppliers[si].items.forEach((it,ii)=>{ const cel=document.getElementById('isub-'+si+'-'+ii); if(cel) cel.textContent='₹'+((it.price||0)*(it.qty||1)).toFixed(2); });
   });
-  const gt=document.getElementById('grand-total');if(gt)gt.textContent='Rs '+purchasesTotal().toFixed(2);
+  const gt=document.getElementById('grand-total'); if(gt) gt.textContent='₹'+purchasesTotal().toFixed(2);
   updateSummary();
 }
+
 function renderSuppliers(){
-  const wrap=document.getElementById('suppliers-wrap');if(!wrap)return;
-  if(!suppliers.length){wrap.innerHTML='<p style="color:var(--muted);font-size:14px;text-align:center;padding:18px 0 4px;">No suppliers yet.</p>';const gt=document.getElementById('grand-total');if(gt)gt.textContent='Rs 0.00';updateSummary();return;}
+  const wrap=document.getElementById('suppliers-wrap'); if(!wrap) return;
+  if(!suppliers.length){
+    wrap.innerHTML='<p style="color:var(--muted);font-size:14px;text-align:center;padding:18px 0 4px;">No suppliers yet.</p>';
+    const gt=document.getElementById('grand-total'); if(gt) gt.textContent='₹0.00';
+    updateSummary(); return;
+  }
   wrap.innerHTML=suppliers.map((sup,si)=>{
     const rows=sup.items.map((it,ii)=>`
       <tr>
@@ -440,18 +739,18 @@ function renderSuppliers(){
         <td><input value="${esc(it.name)}" placeholder="Item name" oninput="updateItemField(${si},${ii},'name',this.value)"/></td>
         <td style="width:62px"><input value="${it.qty||1}" type="number" min="1" style="text-align:center" oninput="updateItemField(${si},${ii},'qty',this.value)"/></td>
         <td style="width:106px"><input value="${it.price||''}" type="number" min="0" step="0.01" placeholder="0.00" oninput="updateItemField(${si},${ii},'price',this.value)"/></td>
-        <td class="item-sub" id="isub-${si}-${ii}">Rs ${((it.price||0)*(it.qty||1)).toFixed(2)}</td>
-        <td style="width:28px;text-align:center"><button class="del-item-btn" onclick="removeItem(${si},${ii})">x</button></td>
+        <td class="item-sub" id="isub-${si}-${ii}">₹${((it.price||0)*(it.qty||1)).toFixed(2)}</td>
+        <td style="width:28px;text-align:center"><button class="del-item-btn" onclick="removeItem(${si},${ii})">×</button></td>
       </tr>`).join('');
     const hasBill=!!sup.billDataUrl;
     return `<div class="supplier-block">
       <div class="supplier-header">
         <span class="supplier-label">Supplier</span>
-        <input class="supplier-name-input" placeholder="Supplier name..." value="${esc(sup.name)}" oninput="updateSupplierName(${si},this.value)"/>
-        <button class="btn-remove-sup" onclick="removeSupplier(${si})">Remove</button>
+        <input class="supplier-name-input" placeholder="Supplier name…" value="${esc(sup.name)}" oninput="updateSupplierName(${si},this.value)"/>
+        <button class="btn-remove-sup" onclick="removeSupplier(${si})">✕ Remove</button>
       </div>
       <div class="supplier-bill-section">
-        <div class="bill-mini-label">Bill for this supplier</div>
+        <div class="bill-mini-label">🧾 Bill for this supplier</div>
         <div class="upload-mini" id="bill-upload-${si}" style="${hasBill?'display:none':'display:flex'}">
           <input type="file" id="bill-input-${si}" accept="image/*" onchange="handleBillUpload(${si},this)"/>
           <span class="upload-mini-icon">📎</span><span class="upload-mini-text">Click to attach bill image</span>
@@ -461,121 +760,211 @@ function renderSuppliers(){
           <div class="bill-mini-info">
             <div class="bill-mini-name" id="bill-name-${si}">${esc(sup.billName)}</div>
             <div style="margin-top:4px;display:flex;gap:8px;">
-              <button class="bill-btn" style="font-size:11px;padding:4px 10px" onclick="previewBill(${si})">View</button>
-              <button class="btn-remove-bill" onclick="removeBill(${si})">Remove</button>
+              <button class="bill-btn" style="font-size:11px;padding:4px 10px" onclick="previewBill(${si})">👁 View</button>
+              <button class="btn-remove-bill" onclick="removeBill(${si})">✕ Remove</button>
             </div>
           </div>
         </div>
       </div>
       <div class="supplier-items-wrap">
         <table class="items-mini-table">
-          <thead><tr><th>#</th><th>Item Name</th><th style="text-align:center">Qty</th><th>Price</th><th style="text-align:right">Subtotal</th><th></th></tr></thead>
+          <thead><tr><th>#</th><th>Item Name</th><th style="text-align:center">Qty</th><th>Price (₹)</th><th style="text-align:right">Subtotal</th><th></th></tr></thead>
           <tbody id="items-body-${si}">${rows}</tbody>
         </table>
-        <button class="add-item-btn" onclick="addItem(${si})">+ Add Item</button>
+        <button class="add-item-btn" onclick="addItem(${si})">＋ Add Item</button>
       </div>
       <div class="supplier-footer">
         <span class="supplier-sub-label">Supplier Total</span>
-        <span class="supplier-sub-value" id="sup-total-${si}">Rs ${supTotal(si).toFixed(2)}</span>
+        <span class="supplier-sub-value" id="sup-total-${si}">₹${supTotal(si).toFixed(2)}</span>
       </div>
     </div>`;
   }).join('');
-  const gt=document.getElementById('grand-total');if(gt)gt.textContent='Rs '+purchasesTotal().toFixed(2);
+  const gt=document.getElementById('grand-total'); if(gt) gt.textContent='₹'+purchasesTotal().toFixed(2);
   updateSummary();
 }
 
+/* ─ SUMMARY ─ */
 function updateSummary(){
-  const s=sales,ex=purchasesTotal(),wg=totalWages(),costs=ex+wg,profit=s-costs;
-  const fmt=v=>'Rs '+Math.abs(v).toFixed(2);
-  const setEl=(id,val,cls)=>{const el=document.getElementById(id);if(!el)return;el.textContent=fmt(val)+(id==='sum-profit'&&val<0?' (Loss)':'');if(cls)el.className='acc-stat-value '+cls;};
-  setEl('sum-sales',s,'c-green');setEl('sum-purchases',ex,'c-red');setEl('sum-wages',wg,'c-red');setEl('sum-costs',costs,'c-blue');setEl('sum-profit',profit,profit>=0?'c-gold':'c-red');
+  const s=sales, ex=purchasesTotal(), wg=totalWages(), costs=ex+wg, profit=s-costs;
+  const fmt=v=>'₹'+Math.abs(v).toFixed(2);
+  const setEl=(id,val,cls)=>{ const el=document.getElementById(id); if(!el)return; el.textContent=fmt(val)+(id==='sum-profit'&&val<0?' (Loss)':''); if(cls) el.className='acc-stat-value '+cls; };
+  setEl('sum-sales',s,'c-green'); setEl('sum-purchases',ex,'c-red'); setEl('sum-wages',wg,'c-red');
+  setEl('sum-costs',costs,'c-blue'); setEl('sum-profit',profit,profit>=0?'c-gold':'c-red');
 }
 
-window.saveData=async()=>{
+/* ─ SAVE ─ */
+window.saveData = async () => {
   const date=document.getElementById('acc-date').value;
-  if(!date){showToast('Please select a date',true);return;}
-  const btn=document.getElementById('btn-save');btn.disabled=true;btn.textContent='Saving...';
-  setSyncStatus('syncing','Saving...');
-  try{await fbSave(date,{date,sales,workers,suppliers,updatedAt:new Date().toISOString()});setSyncStatus('synced','Synced');showToast('Saved and synced for '+formatDate(date));}
-  catch(e){setSyncStatus('error','Failed');showToast('Save failed. Check internet.',true);}
-  finally{btn.disabled=false;btn.textContent='Save Entry';}
+  if(!date){ showToast('Please select a date',true); return; }
+  const btn=document.getElementById('btn-save'); btn.disabled=true; btn.textContent='⏳ Saving…';
+  setSyncStatus('syncing','↻ Saving…');
+  try {
+    await fbSave('entry_'+date, {date, sales, workers:dailyWorkers, suppliers, updatedAt:new Date().toISOString()});
+    setSyncStatus('synced','✓ Synced');
+    showToast('✅ Saved & synced for '+formatDate(date));
+  } catch(e) { setSyncStatus('error','✗ Failed'); showToast('❌ Save failed. Check internet.',true); }
+  finally { btn.disabled=false; btn.textContent='💾 Save Entry'; }
 };
 
-function initOwner(){document.getElementById('owner-date').value=todayStr();loadOwnerData();}
+/* ─ OWNER ─ */
+function initOwner(){ document.getElementById('owner-date').value=todayStr(); loadOwnerData(); }
+
 async function loadOwnerData(){
-  const date=document.getElementById('owner-date').value;if(!date)return;
+  const date=document.getElementById('owner-date').value; if(!date) return;
   const oSync=document.getElementById('owner-sync-status');
-  oSync.className='sync-indicator syncing';oSync.textContent='Loading...';
-  try{const entry=await fbLoad(date);oSync.className='sync-indicator synced';oSync.textContent='Live';renderOwnerReport(entry,date);}
-  catch(e){oSync.className='sync-indicator error';oSync.textContent='Offline';renderOwnerReport(null,date);}
+  oSync.className='sync-indicator syncing'; oSync.textContent='↻ Loading…';
+  try {
+    const entry=await fbLoad('entry_'+date);
+    oSync.className='sync-indicator synced'; oSync.textContent='✓ Live';
+    renderOwnerReport(entry,date);
+  } catch(e) {
+    oSync.className='sync-indicator error'; oSync.textContent='✗ Offline';
+    renderOwnerReport(null,date);
+  }
 }
 window.loadOwnerData=loadOwnerData;
 
-function renderOwnerReport(entry,date){
-  const wrap=document.getElementById('owner-content');
-  if(!entry){wrap.innerHTML=`<div class="no-data"><div class="no-data-icon">📭</div><p>No data found for ${formatDate(date)}.</p></div>`;return;}
-  const s=entry.sales||0,wks=entry.workers||[],sups=entry.suppliers||[];
-  const ex=sups.reduce((t,sup)=>t+sup.items.reduce((ss,it)=>ss+((it.price||0)*(it.qty||1)),0),0);
-  const wg=wks.reduce((t,w)=>t+((w.payPerDay||0)*(w.days||1)),0);
-  const costs=ex+wg,profit=s-costs,isProfit=profit>=0;
-  window._ownerEntry=entry;
+function renderOwnerReport(entry, date){
+  const tabsEl = document.getElementById('owner-tabs');
+  const wrap   = document.getElementById('owner-content');
 
-  const hero=`<div class="profit-hero">
-    <div class="profit-hero-title">Daily Report — ${formatDate(date)}</div>
-    <div class="hero-grid">
-      <div class="hero-card green"><div class="hero-card-label">Total Sales</div><div class="hero-card-value">Rs ${s.toFixed(2)}</div></div>
-      <div class="hero-card red"><div class="hero-card-label">Purchases</div><div class="hero-card-value">Rs ${ex.toFixed(2)}</div></div>
-      <div class="hero-card red"><div class="hero-card-label">Worker Wages</div><div class="hero-card-value">Rs ${wg.toFixed(2)}</div></div>
-      <div class="hero-card blue"><div class="hero-card-label">Total Costs</div><div class="hero-card-value">Rs ${costs.toFixed(2)}</div></div>
-      <div class="hero-card ${isProfit?'green':'red'}">
-        <div class="hero-card-label">${isProfit?'Net Profit':'Net Loss'}</div>
-        <div class="hero-card-value">Rs ${Math.abs(profit).toFixed(2)}</div>
-        <div class="profit-badge ${isProfit?'up':'down'}">${isProfit?'Profit':'Loss'} Rs ${Math.abs(profit).toFixed(2)}</div>
-      </div>
-    </div>
-  </div>`;
-
-  let workersHtml='';
-  if(wks.length){
-    const rows=wks.map((w,i)=>`<tr><td>${i+1}</td><td>${esc(w.name)||'—'}</td><td><span style="background:var(--card);border-radius:4px;padding:2px 8px;font-size:12px;">${esc(w.role)||'—'}</span></td><td style="text-align:center">${w.days||1}</td><td style="text-align:right">Rs ${(w.payPerDay||0).toFixed(2)}</td><td style="text-align:right;color:var(--accent);font-weight:600;">Rs ${((w.payPerDay||0)*(w.days||1)).toFixed(2)}</td></tr>`).join('');
-    workersHtml=`<div class="owner-section"><div class="owner-sec-head"><span class="owner-sec-title">Workers and Wages</span><span class="owner-sec-amt" style="color:var(--danger)">Rs ${wg.toFixed(2)}</span></div><table class="view-table"><thead><tr><th>#</th><th>Name</th><th>Role</th><th style="text-align:center">Days</th><th style="text-align:right">Pay/Day</th><th style="text-align:right">Total</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  if(!entry){
+    tabsEl.style.display='none';
+    wrap.innerHTML=`<div class="no-data"><div class="no-data-icon">📭</div><p>No data found for ${formatDate(date)}.</p></div>`;
+    return;
   }
 
-  let suppliersHtml='';
+  const s    = entry.sales     || 0;
+  const wks  = entry.workers   || [];
+  const sups = entry.suppliers || [];
+  const ex   = sups.reduce((t,sup)=>t+sup.items.reduce((ss,it)=>ss+((it.price||0)*(it.qty||1)),0),0);
+  const wg   = wks.reduce((t,w)=>t+((w.payPerDay||0)*(w.days||1)),0);
+  const costs= ex+wg, profit=s-costs, isProfit=profit>=0;
+  window._ownerEntry=entry;
+
+  /* ── Profit tab content ── */
+  const profitHtml=`
+    <div id="ot-profit" class="tab-panel active">
+      <div class="profit-hero">
+        <div class="profit-hero-title">📊 Daily Report — ${formatDate(date)}</div>
+        <div class="hero-grid">
+          <div class="hero-card green"><div class="hero-card-label">💰 Total Sales</div><div class="hero-card-value">₹${s.toFixed(2)}</div></div>
+          <div class="hero-card red"><div class="hero-card-label">🛒 Purchases</div><div class="hero-card-value">₹${ex.toFixed(2)}</div></div>
+          <div class="hero-card red"><div class="hero-card-label">👷 Wages</div><div class="hero-card-value">₹${wg.toFixed(2)}</div></div>
+          <div class="hero-card blue"><div class="hero-card-label">📦 Total Costs</div><div class="hero-card-value">₹${costs.toFixed(2)}</div></div>
+          <div class="hero-card ${isProfit?'green':'red'}">
+            <div class="hero-card-label">${isProfit?'✅ Net Profit':'❌ Net Loss'}</div>
+            <div class="hero-card-value">₹${Math.abs(profit).toFixed(2)}</div>
+            <div class="profit-badge ${isProfit?'up':'down'}">${isProfit?'▲ Profit':'▼ Loss'} ₹${Math.abs(profit).toFixed(2)}</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  /* ── Workers tab content ── */
+  let workersTabHtml='';
+  if(wks.length){
+    const rows=wks.map((w,i)=>`
+      <tr>
+        <td>${i+1}</td>
+        <td>${esc(w.name)||'—'}</td>
+        <td><span style="background:var(--card);border-radius:4px;padding:2px 8px;font-size:12px;">${esc(w.role)||'—'}</span></td>
+        <td style="text-align:center">${w.days||1}</td>
+        <td style="text-align:right">₹${(w.payPerDay||0).toFixed(2)}</td>
+        <td style="text-align:right;color:var(--accent);font-weight:600;">₹${((w.payPerDay||0)*(w.days||1)).toFixed(2)}</td>
+      </tr>`).join('');
+    workersTabHtml=`
+      <div id="ot-workers" class="tab-panel">
+        <div class="section-card" style="padding:0;overflow:hidden;">
+          <table class="view-table">
+            <thead><tr><th>#</th><th>Name</th><th>Role</th><th style="text-align:center">Days</th><th style="text-align:right">Pay/Day</th><th style="text-align:right">Total</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+          <div class="section-total-bar">
+            <span class="section-total-label">Total Wages</span>
+            <span class="section-total-value">₹${wg.toFixed(2)}</span>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    workersTabHtml=`<div id="ot-workers" class="tab-panel"><div class="no-data"><div class="no-data-icon">👷</div><p>No workers recorded for this date.</p></div></div>`;
+  }
+
+  /* ── Expenses tab content ── */
+  let expensesTabHtml='';
   if(sups.length){
     const cards=sups.map((sup,si)=>{
       const st=sup.items.reduce((t,it)=>t+((it.price||0)*(it.qty||1)),0);
-      const rows=sup.items.map((it,i)=>`<tr><td>${i+1}</td><td>${esc(it.name)||'—'}</td><td style="text-align:center">${it.qty||1}</td><td>Rs ${(it.price||0).toFixed(2)}</td><td style="color:var(--accent);font-weight:600;">Rs ${((it.price||0)*(it.qty||1)).toFixed(2)}</td></tr>`).join('');
-      const billBtn=sup.billDataUrl?`<button class="bill-btn" onclick="ownerViewBill(${si})">View Bill</button>`:`<span style="color:var(--muted);font-size:12px;font-style:italic;">No bill</span>`;
-      return `<div class="owner-supplier-card"><div class="owner-sup-head"><span class="owner-sup-name">${esc(sup.name)||'Unnamed Supplier'}</span><div class="owner-sup-right">${billBtn}<span class="owner-sup-total">Rs ${st.toFixed(2)}</span></div></div><table class="view-table"><thead><tr><th>#</th><th>Item</th><th style="text-align:center">Qty</th><th>Unit Price</th><th>Amount</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+      const rows=sup.items.map((it,i)=>`
+        <tr>
+          <td>${i+1}</td><td>${esc(it.name)||'—'}</td>
+          <td style="text-align:center">${it.qty||1}</td>
+          <td>₹${(it.price||0).toFixed(2)}</td>
+          <td style="color:var(--accent);font-weight:600;">₹${((it.price||0)*(it.qty||1)).toFixed(2)}</td>
+        </tr>`).join('');
+      const billBtn=sup.billDataUrl?`<button class="bill-btn" onclick="ownerViewBill(${si})">🧾 View Bill</button>`:`<span style="color:var(--muted);font-size:12px;font-style:italic;">No bill</span>`;
+      return `<div class="owner-supplier-card">
+        <div class="owner-sup-head">
+          <span class="owner-sup-name">🏪 ${esc(sup.name)||'Unnamed Supplier'}</span>
+          <div class="owner-sup-right">${billBtn}<span class="owner-sup-total">₹${st.toFixed(2)}</span></div>
+        </div>
+        <table class="view-table">
+          <thead><tr><th>#</th><th>Item</th><th style="text-align:center">Qty</th><th>Unit Price</th><th>Amount</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
     }).join('');
-    suppliersHtml=`<div class="owner-section"><div class="owner-sec-head"><span class="owner-sec-title">Purchases / Expenses</span><span class="owner-sec-amt" style="color:var(--danger)">Rs ${ex.toFixed(2)}</span></div><div style="padding:14px">${cards}</div></div>`;
+    expensesTabHtml=`
+      <div id="ot-expenses" class="tab-panel">
+        ${cards}
+        <div class="section-total-bar" style="background:rgba(212,168,83,.07);border:1px solid rgba(212,168,83,.2);border-radius:var(--radius);padding:14px 20px;">
+          <span class="section-total-label">Total Purchases</span>
+          <span class="section-total-value">₹${ex.toFixed(2)}</span>
+        </div>
+      </div>`;
+  } else {
+    expensesTabHtml=`<div id="ot-expenses" class="tab-panel"><div class="no-data"><div class="no-data-icon">🧾</div><p>No purchases recorded for this date.</p></div></div>`;
   }
 
-  const footer=`<div class="owner-grand"><span class="owner-grand-label">Grand Total Costs (Purchases + Wages)</span><span class="owner-grand-value">Rs ${costs.toFixed(2)}</span></div>`;
-  wrap.innerHTML=hero+workersHtml+suppliersHtml+footer;
+  /* Show tabs and inject content */
+  tabsEl.style.display='flex';
+  wrap.innerHTML = profitHtml + workersTabHtml + expensesTabHtml;
+
+  /* Reset owner tab to Profit */
+  document.querySelectorAll('#owner-tabs .page-tab').forEach((t,i)=>t.classList.toggle('active',i===0));
 }
 
-window.ownerViewBill=si=>{const entry=window._ownerEntry;if(!entry)return;const sup=entry.suppliers[si];openModal(sup?sup.billDataUrl:null,sup?sup.name:'');};
+window.ownerViewBill = si => {
+  const entry=window._ownerEntry; if(!entry) return;
+  const sup=entry.suppliers[si];
+  openModal(sup?sup.billDataUrl:null,sup?sup.name:'');
+};
 
+/* ─ MODAL ─ */
 function openModal(dataUrl,name){
-  document.getElementById('modal-title').textContent='Bill - '+(name||'Supplier');
-  const img=document.getElementById('modal-img'),noB=document.getElementById('modal-no-bill');
+  document.getElementById('modal-title').textContent='🧾 Bill — '+(name||'Supplier');
+  const img=document.getElementById('modal-img'), noB=document.getElementById('modal-no-bill');
   if(dataUrl){img.src=dataUrl;img.style.display='block';noB.style.display='none';}
   else{img.style.display='none';noB.style.display='block';}
   document.getElementById('bill-modal').classList.add('open');
 }
-window.closeBillModal=e=>{if(!e||e.target===document.getElementById('bill-modal'))document.getElementById('bill-modal').classList.remove('open');};
+window.closeBillModal=e=>{ if(!e||e.target===document.getElementById('bill-modal')) document.getElementById('bill-modal').classList.remove('open'); };
 
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
-function setLoadingText(t){const el=document.getElementById('loading-text');if(el)el.textContent=t;}
-function hideLoading(){const el=document.getElementById('loading-overlay');if(el)el.style.display='none';}
-function setSyncStatus(state,msg){const el=document.getElementById('sync-status');if(!el)return;el.className='sync-indicator '+state;el.textContent=msg;}
-function todayStr(){return new Date().toISOString().split('T')[0];}
-function formatDate(s){if(!s)return'';const[y,m,d]=s.split('-');return`${parseInt(d)} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m-1]} ${y}`;}
-function esc(str){return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function showToast(msg,err=false){const t=document.getElementById('toast');t.textContent=msg;t.style.background=err?'var(--danger)':'var(--success)';t.style.color=err?'#fff':'#000';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);}
+/* ─ UTILS ─ */
+function showScreen(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+function setLoadingText(t){ const el=document.getElementById('loading-text'); if(el) el.textContent=t; }
+function hideLoading(){ const el=document.getElementById('loading-overlay'); if(el) el.style.display='none'; }
+function setSyncStatus(state,msg){ const el=document.getElementById('sync-status'); if(!el)return; el.className='sync-indicator '+state; el.textContent=msg; }
+function todayStr(){ return new Date().toISOString().split('T')[0]; }
+function formatDate(s){ if(!s)return''; const[y,m,d]=s.split('-'); return`${parseInt(d)} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m-1]} ${y}`; }
+function esc(str){ return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function showToast(msg,err=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.style.background=err?'var(--danger)':'var(--success)'; t.style.color=err?'#fff':'#000';
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3500);
+}
 window.showToast=showToast;
+
 document.getElementById('password').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 document.getElementById('username').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 </script>
