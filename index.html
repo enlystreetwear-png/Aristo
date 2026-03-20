@@ -499,7 +499,7 @@ let dailyWorkers = [];
 let suppliers = [];
 
 /* ─ TABS ─ */
-const ACC_TABS = ['t-sales','t-workers','t-expenses','t-summary'];
+const ACC_TABS = ['t-expenses','t-workers','t-sales','t-summary'];
 window.switchAccTab = id => {
   ACC_TABS.forEach(t => document.getElementById(t).classList.remove('active'));
   document.querySelectorAll('#acc-screen .page-tab').forEach(t => t.classList.remove('active'));
@@ -508,7 +508,7 @@ window.switchAccTab = id => {
   if(id==='t-summary') updateSummary();
 };
 
-const OWNER_TABS = ['ot-profit','ot-workers','ot-expenses'];
+const OWNER_TABS = ['ot-profit','ot-expenses','ot-workers'];
 window.switchOwnerTab = id => {
   OWNER_TABS.forEach(t => { const el=document.getElementById(t); if(el) el.classList.remove('active'); });
   document.querySelectorAll('#owner-tabs .page-tab').forEach(t => t.classList.remove('active'));
