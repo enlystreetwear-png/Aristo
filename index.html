@@ -248,7 +248,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;hei
 <div id="login-screen" class="screen">
   <div class="login-box">
     <div class="brand">
-      <div class="brand-icon">🏨</div>
       <h1>Aristo Hotel</h1>
       <p>Business Expense Manager</p>
     </div>
@@ -263,7 +262,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;hei
 <!-- ══ ACCOUNTANT ══ -->
 <div id="acc-screen" class="screen">
   <div class="topbar">
-    <span class="topbar-brand">🏨 Aristo Hotel</span>
+    <span class="topbar-brand"> Aristo Hotel</span>
     <div class="topbar-right">
       <span class="sync-indicator synced" id="sync-status">✓ Synced</span>
       <span class="topbar-role">Accountant</span>
@@ -272,14 +271,14 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;hei
   </div>
   <div class="content">
     <div class="date-bar">
-      <label>📅 Date:</label>
+      <label> Date:</label>
       <input type="date" id="acc-date" onchange="loadAccData()"/>
     </div>
     <div class="page-tabs">
-      <button class="page-tab" onclick="switchAccTab('t-expenses')">🧾 Expenses</button>
-      <button class="page-tab" onclick="switchAccTab('t-workers')">👷 Workers</button>
-      <button class="page-tab active" onclick="switchAccTab('t-sales')">💰 Sales</button>
-      <button class="page-tab" onclick="switchAccTab('t-summary')">📊 Summary</button>
+      <button class="page-tab" onclick="switchAccTab('t-expenses')"> Expenses</button>
+      <button class="page-tab" onclick="switchAccTab('t-workers')"> Workers</button>
+      <button class="page-tab active" onclick="switchAccTab('t-sales')"> Sales</button>
+      <button class="page-tab" onclick="switchAccTab('t-summary')"> Summary</button>
     </div>
 
     <!-- SALES -->
@@ -329,7 +328,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;hei
             </div>
           </div>
           <div class="awf-btns">
-            <button class="btn-save-worker" onclick="saveWorkerToList()">💾 Save Worker</button>
+            <button class="btn-save-worker" onclick="saveWorkerToList()"> Save Worker</button>
             <button class="btn-cancel-form" onclick="closeWorkerForm()">Cancel</button>
           </div>
         </div>
@@ -385,17 +384,17 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;hei
       <div class="section-card">
         <div class="section-title">Today's Financial Summary</div>
         <div class="acc-summary-grid">
-          <div class="acc-stat"><div class="acc-stat-label">💰 Total Sales</div><div class="acc-stat-value c-green" id="sum-sales">₹0.00</div></div>
-          <div class="acc-stat"><div class="acc-stat-label">🛒 Purchases</div><div class="acc-stat-value c-red" id="sum-purchases">₹0.00</div></div>
-          <div class="acc-stat"><div class="acc-stat-label">👷 Worker Wages</div><div class="acc-stat-value c-red" id="sum-wages">₹0.00</div></div>
-          <div class="acc-stat"><div class="acc-stat-label">📦 Total Costs</div><div class="acc-stat-value c-blue" id="sum-costs">₹0.00</div></div>
-          <div class="acc-stat"><div class="acc-stat-label">📈 Net Profit / Loss</div><div class="acc-stat-value c-gold" id="sum-profit">₹0.00</div></div>
+          <div class="acc-stat"><div class="acc-stat-label"> Total Sales</div><div class="acc-stat-value c-green" id="sum-sales">₹0.00</div></div>
+          <div class="acc-stat"><div class="acc-stat-label"> Purchases</div><div class="acc-stat-value c-red" id="sum-purchases">₹0.00</div></div>
+          <div class="acc-stat"><div class="acc-stat-label"> Worker Wages</div><div class="acc-stat-value c-red" id="sum-wages">₹0.00</div></div>
+          <div class="acc-stat"><div class="acc-stat-label"> Total Costs</div><div class="acc-stat-value c-blue" id="sum-costs">₹0.00</div></div>
+          <div class="acc-stat"><div class="acc-stat-label"> Net Profit / Loss</div><div class="acc-stat-value c-gold" id="sum-profit">₹0.00</div></div>
         </div>
       </div>
     </div>
 
     <div class="save-bar">
-      <button class="btn-save" id="btn-save" onclick="saveData()">💾 Save Entry</button>
+      <button class="btn-save" id="btn-save" onclick="saveData()"> Save Entry</button>
     </div>
   </div>
 </div>
@@ -403,7 +402,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;hei
 <!-- ══ OWNER ══ -->
 <div id="owner-screen" class="screen">
   <div class="topbar">
-    <span class="topbar-brand">🏨 Aristo Hotel</span>
+    <span class="topbar-brand"> Aristo Hotel</span>
     <div class="topbar-right">
       <span class="sync-indicator synced" id="owner-sync-status">✓ Live</span>
       <span class="topbar-role">Owner</span>
@@ -412,15 +411,15 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;hei
   </div>
   <div class="content">
     <div class="owner-date-bar">
-      <label>📅 Report for:</label>
+      <label> Report for:</label>
       <input type="date" id="owner-date" onchange="loadOwnerData()"/>
     </div>
 
     <!-- Owner tabs -->
     <div class="page-tabs" id="owner-tabs" style="display:none">
-      <button class="page-tab active" onclick="switchOwnerTab('ot-profit')">📊 Profit</button>
-      <button class="page-tab" onclick="switchOwnerTab('ot-expenses')">🧾 Expenses</button>
-      <button class="page-tab" onclick="switchOwnerTab('ot-workers')">👷 Workers</button>
+      <button class="page-tab active" onclick="switchOwnerTab('ot-profit')"> Profit</button>
+      <button class="page-tab" onclick="switchOwnerTab('ot-expenses')"> Expenses</button>
+      <button class="page-tab" onclick="switchOwnerTab('ot-workers')"> Workers</button>
     </div>
 
     <div id="owner-content">
@@ -433,7 +432,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;hei
 <div class="modal-overlay" id="bill-modal" onclick="closeBillModal(event)">
   <div class="modal">
     <button class="modal-close" onclick="document.getElementById('bill-modal').classList.remove('open')">✕</button>
-    <h3 id="modal-title">🧾 Bill Image</h3>
+    <h3 id="modal-title"> Bill Image</h3>
     <img class="modal-img" id="modal-img" src="" alt="Bill" style="display:none"/>
     <p id="modal-no-bill" style="color:var(--muted);font-size:14px;display:none;">No bill image for this supplier.</p>
   </div>
@@ -743,7 +742,7 @@ function renderSuppliers(){
         <button class="btn-remove-sup" onclick="removeSupplier(${si})">✕ Remove</button>
       </div>
       <div class="supplier-bill-section">
-        <div class="bill-mini-label">🧾 Bill for this supplier</div>
+        <div class="bill-mini-label"> Bill for this supplier</div>
         <div class="upload-mini" id="bill-upload-${si}" style="${hasBill?'display:none':'display:flex'}">
           <input type="file" id="bill-input-${si}" accept="image/*" onchange="handleBillUpload(${si},this)"/>
           <span class="upload-mini-icon">📎</span><span class="upload-mini-text">Click to attach bill image</span>
@@ -796,7 +795,7 @@ window.saveData = async () => {
     setSyncStatus('synced','✓ Synced');
     showToast('✅ Saved & synced for '+formatDate(date));
   } catch(e) { setSyncStatus('error','✗ Failed'); showToast('❌ Save failed. Check internet.',true); }
-  finally { btn.disabled=false; btn.textContent='💾 Save Entry'; }
+  finally { btn.disabled=false; btn.textContent=' Save Entry'; }
 };
 
 /* ─ OWNER ─ */
@@ -839,12 +838,12 @@ function renderOwnerReport(entry, date){
   const profitHtml=`
     <div id="ot-profit" class="tab-panel active">
       <div class="profit-hero">
-        <div class="profit-hero-title">📊 Daily Report — ${formatDate(date)}</div>
+        <div class="profit-hero-title"> Daily Report — ${formatDate(date)}</div>
         <div class="hero-grid">
-          <div class="hero-card green"><div class="hero-card-label">💰 Total Sales</div><div class="hero-card-value">₹${s.toFixed(2)}</div></div>
-          <div class="hero-card red"><div class="hero-card-label">🛒 Purchases</div><div class="hero-card-value">₹${ex.toFixed(2)}</div></div>
-          <div class="hero-card red"><div class="hero-card-label">👷 Wages</div><div class="hero-card-value">₹${wg.toFixed(2)}</div></div>
-          <div class="hero-card blue"><div class="hero-card-label">📦 Total Costs</div><div class="hero-card-value">₹${costs.toFixed(2)}</div></div>
+          <div class="hero-card green"><div class="hero-card-label"> Total Sales</div><div class="hero-card-value">₹${s.toFixed(2)}</div></div>
+          <div class="hero-card red"><div class="hero-card-label"> Purchases</div><div class="hero-card-value">₹${ex.toFixed(2)}</div></div>
+          <div class="hero-card red"><div class="hero-card-label"> Wages</div><div class="hero-card-value">₹${wg.toFixed(2)}</div></div>
+          <div class="hero-card blue"><div class="hero-card-label"> Total Costs</div><div class="hero-card-value">₹${costs.toFixed(2)}</div></div>
           <div class="hero-card ${isProfit?'green':'red'}">
             <div class="hero-card-label">${isProfit?'✅ Net Profit':'❌ Net Loss'}</div>
             <div class="hero-card-value">₹${Math.abs(profit).toFixed(2)}</div>
@@ -879,7 +878,7 @@ function renderOwnerReport(entry, date){
         </div>
       </div>`;
   } else {
-    workersTabHtml=`<div id="ot-workers" class="tab-panel"><div class="no-data"><div class="no-data-icon">👷</div><p>No workers recorded for this date.</p></div></div>`;
+    workersTabHtml=`<div id="ot-workers" class="tab-panel"><div class="no-data"><div class="no-data-icon"></div><p>No workers recorded for this date.</p></div></div>`;
   }
 
   /* ── Expenses tab content ── */
@@ -894,7 +893,7 @@ function renderOwnerReport(entry, date){
           <td>₹${(it.price||0).toFixed(2)}</td>
           <td style="color:var(--accent);font-weight:600;">₹${((it.price||0)*(it.qty||1)).toFixed(2)}</td>
         </tr>`).join('');
-      const billBtn=sup.billDataUrl?`<button class="bill-btn" onclick="ownerViewBill(${si})">🧾 View Bill</button>`:`<span style="color:var(--muted);font-size:12px;font-style:italic;">No bill</span>`;
+      const billBtn=sup.billDataUrl?`<button class="bill-btn" onclick="ownerViewBill(${si})"> View Bill</button>`:`<span style="color:var(--muted);font-size:12px;font-style:italic;">No bill</span>`;
       return `<div class="owner-supplier-card">
         <div class="owner-sup-head">
           <span class="owner-sup-name">🏪 ${esc(sup.name)||'Unnamed Supplier'}</span>
@@ -915,7 +914,7 @@ function renderOwnerReport(entry, date){
         </div>
       </div>`;
   } else {
-    expensesTabHtml=`<div id="ot-expenses" class="tab-panel"><div class="no-data"><div class="no-data-icon">🧾</div><p>No purchases recorded for this date.</p></div></div>`;
+    expensesTabHtml=`<div id="ot-expenses" class="tab-panel"><div class="no-data"><div class="no-data-icon"></div><p>No purchases recorded for this date.</p></div></div>`;
   }
 
   /* Show tabs and inject content */
@@ -934,7 +933,7 @@ window.ownerViewBill = si => {
 
 /* ─ MODAL ─ */
 function openModal(dataUrl,name){
-  document.getElementById('modal-title').textContent='🧾 Bill — '+(name||'Supplier');
+  document.getElementById('modal-title').textContent=' Bill — '+(name||'Supplier');
   const img=document.getElementById('modal-img'), noB=document.getElementById('modal-no-bill');
   if(dataUrl){img.src=dataUrl;img.style.display='block';noB.style.display='none';}
   else{img.style.display='none';noB.style.display='block';}
